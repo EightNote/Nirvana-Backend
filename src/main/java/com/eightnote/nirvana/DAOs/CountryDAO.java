@@ -3,12 +3,14 @@ package com.eightnote.nirvana.DAOs;
 import com.eightnote.nirvana.models.Country;
 import com.eightnote.nirvana.row_mappers.CountryRowMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.dao.DataAccessException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
-
+@Component
 public class CountryDAO {
     private final JdbcTemplate jdbcTemplate;
 
