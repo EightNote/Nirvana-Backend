@@ -1,10 +1,10 @@
 package com.eightnote.nirvana.DAOs;
 
+import com.eightnote.nirvana.row_mappers.FollowerRowMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class FollowerDAO {
@@ -16,7 +16,8 @@ public class FollowerDAO {
     }
 
     public List<UserDetails> getFollowersOf(String username) {
-        return new ArrayList<>();
+        String sql = "%s".formatted(username);
+        return jdbcTemplate.query(sql, FollowerRowMapper.followerRowMapper);
     }
 
     public void addFollower(UserDetails user1, UserDetails user2) {

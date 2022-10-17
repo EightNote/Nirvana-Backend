@@ -5,6 +5,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 @Component
 public class FollowerService {
     @Autowired
@@ -20,5 +22,9 @@ public class FollowerService {
 
     public void removeFollower(UserDetails u1, UserDetails u2) {
         followerDAO.removeFollower(u1, u2);
+    }
+
+    public List<UserDetails> getFollowers(String username) {
+        return followerDAO.getFollowersOf(username);
     }
 }

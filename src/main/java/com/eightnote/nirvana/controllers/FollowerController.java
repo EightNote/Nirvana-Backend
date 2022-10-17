@@ -7,9 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.provisioning.JdbcUserDetailsManager;
 import org.springframework.stereotype.Component;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -78,5 +76,15 @@ public class FollowerController {
         }
 
         return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+    }
+
+    @GetMapping("followers/{user}")
+    public ResponseEntity followers(
+        @PathVariable("user") String username
+    ) {
+        if (userDetailsManager.loadUserByUsername(username) == null) {
+            return new ResponseEntity<>(username + " does not exist", HttpStatus.BAD_REQUEST);
+        }
+        return new ResponseEntity<>(followerService.getFollowers(username), HttpStatus.OK);
     }
 }
