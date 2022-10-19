@@ -3,7 +3,9 @@ package com.eightnote.nirvana.services;
 import com.eightnote.nirvana.DAOs.TrackDAO;
 import com.eightnote.nirvana.models.Track;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
+@Component
 public class TrackService {
     @Autowired
     private final TrackDAO trackDao;
