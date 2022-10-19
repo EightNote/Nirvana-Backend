@@ -2,9 +2,11 @@ package com.eightnote.nirvana.services;
 
 import com.eightnote.nirvana.DAOs.AlbumDAO;
 import com.eightnote.nirvana.models.Album;
+import com.eightnote.nirvana.models.Country;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
 @Component
 public class AlbumService {
     @Autowired
@@ -14,8 +16,16 @@ public class AlbumService {
         this.albumDAO = albumDAO;
     }
 
+    public int like(String albumName) {
+        albumDAO.like(albumName);
+        return albumDAO.getAlbum(albumName).getLikes();
+    }
     public Album getAlbum(String albumName) {
         return albumDAO.getAlbum(albumName);
+    }
+
+    public List<Country> getReleasedCountries(String album) {
+        return albumDAO.getReleaseCountries(album);
     }
 
     public void createAlbum(String albumName) {
