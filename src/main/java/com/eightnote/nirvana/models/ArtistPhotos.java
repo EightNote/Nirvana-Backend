@@ -2,7 +2,6 @@ package com.eightnote.nirvana.models;
 
 import org.springframework.stereotype.Component;
 
-@Component
 public class ArtistPhotos {
     private final int srno;
     private final String url;

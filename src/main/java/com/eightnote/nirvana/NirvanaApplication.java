@@ -20,12 +20,12 @@ import org.springframework.web.bind.annotation.RestController;
 		"com.eightnote.nirvana.models",
 		"com.eightnote.nirvana.row_mappers",
 		"com.eightnote.nirvana.DAOs",
-		"com.eightnote.nirvana.login"
+		"com.eightnote.nirvana.login",
+		"org.springframework.security.provisioning.JdbcUserDetailsManager"
 })
 @RestController
 public class NirvanaApplication {
-	@Autowired
-	JdbcUserDetailsManager userDetailsManager;
+	private JdbcUserDetailsManager userDetailsManager;
 	BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
 	public static void main(String[] args) {
 		SpringApplication.run(NirvanaApplication.class, args);

@@ -53,7 +53,7 @@ public class FollowerController {
         return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
     }
 
-    @PostMapping("/follow")
+    @PostMapping("/unfollow")
     public ResponseEntity unfollow(
             @RequestParam("user1") String user1,
             @RequestParam("user2") String user2

@@ -6,9 +6,11 @@ import com.eightnote.nirvana.row_mappers.AlbumRowMapper;
 import com.eightnote.nirvana.row_mappers.CountryRowMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
+@Component
 public class AlbumDAO {
     @Autowired
     private final JdbcTemplate jdbcTemplate;

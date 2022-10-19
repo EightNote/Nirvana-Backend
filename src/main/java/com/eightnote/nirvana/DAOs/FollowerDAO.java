@@ -4,9 +4,11 @@ import com.eightnote.nirvana.row_mappers.FollowerRowMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
+@Component
 public class FollowerDAO {
     @Autowired
     private final JdbcTemplate jdbcTemplate;

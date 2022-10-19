@@ -4,9 +4,11 @@ import com.eightnote.nirvana.DAOs.AlbumDAO;
 import com.eightnote.nirvana.models.Album;
 import com.eightnote.nirvana.models.Country;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
+@Component
 public class AlbumService {
     @Autowired
     private final AlbumDAO albumDAO;

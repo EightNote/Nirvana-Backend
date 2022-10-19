@@ -1,5 +1,7 @@
 package com.eightnote.nirvana.models;
 
+import org.springframework.stereotype.Component;
+
 public class Album {
     private final int id;
     private final int artistId;

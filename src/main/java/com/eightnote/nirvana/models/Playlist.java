@@ -2,7 +2,6 @@ package com.eightnote.nirvana.models;
 
 import org.springframework.stereotype.Component;
 
-@Component
 public class Playlist {
     private final int id;
     private final String name;

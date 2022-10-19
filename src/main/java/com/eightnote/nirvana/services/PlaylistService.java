@@ -2,7 +2,6 @@ package com.eightnote.nirvana.services;
 
 import com.eightnote.nirvana.DAOs.PlaylistDAO;
 import com.eightnote.nirvana.models.Playlist;
-import com.eightnote.nirvana.models.Track;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
