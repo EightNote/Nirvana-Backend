@@ -4,7 +4,9 @@ import com.eightnote.nirvana.models.Album;
 import com.eightnote.nirvana.row_mappers.AlbumRowMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Component;
 
+@Component
 public class AlbumDAO {
     @Autowired
     private final JdbcTemplate jdbcTemplate;

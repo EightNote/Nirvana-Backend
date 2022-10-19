@@ -8,7 +8,7 @@ public class ArtistPhotos {
     private final String url;
     private final String description;
 
-    public ArtistPhotos(int srno, String url, String description) {
+    public ArtistPhotos(Integer srno, String url, String description) {
         this.srno = srno;
         this.url = url;
         this.description = description;

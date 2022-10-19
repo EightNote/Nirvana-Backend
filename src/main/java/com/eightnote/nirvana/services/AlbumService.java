@@ -3,7 +3,9 @@ package com.eightnote.nirvana.services;
 import com.eightnote.nirvana.DAOs.AlbumDAO;
 import com.eightnote.nirvana.models.Album;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
+@Component
 public class AlbumService {
     @Autowired
     private final AlbumDAO albumDAO;
