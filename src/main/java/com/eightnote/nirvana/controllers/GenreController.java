@@ -6,10 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @Component
@@ -23,8 +20,21 @@ public class GenreController {
     }
 
 
-//    @GetMapping("/get-track-genre/{track}")
-//    public ResponseEntity getGenre(@PathVariable("track") String trackName) {
-//        return new ResponseEntity<>(genreService.getGenre(trackName), HttpStatus.OK);
-//    }
+    @GetMapping("/get-tracks/{genre}")
+    public ResponseEntity getGenre(@PathVariable("genre") String genre) {
+        return new ResponseEntity<>(genreService.getTracks(genre), HttpStatus.OK);
+    }
+
+    @PostMapping("/{genreName}")
+    public ResponseEntity createGenre(@PathVariable("genreName") String genreName) {
+        genreService.createGenre(genreName);
+
+        return new ResponseEntity<>(true, HttpStatus.OK);
+    }
+
+
+    @GetMapping("/{genreName}")
+    public ResponseEntity getGenreID(@PathVariable("genreName") String genreName) {
+        return new ResponseEntity<>(genreService.getGenre(genreName).getId(), HttpStatus.OK);
+    }
 }

@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class GenreRowMapper {
-    public static RowMapper<Genre> GenreRowMapper = (rs, rowNum) -> new Genre(
+    public static RowMapper<Genre> genreRowMapper = (rs, rowNum) -> new Genre(
             rs.getInt("id"),
             rs.getString("name")
     );
