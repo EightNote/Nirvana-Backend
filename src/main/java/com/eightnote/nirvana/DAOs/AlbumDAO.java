@@ -38,4 +38,24 @@ public class AlbumDAO {
         String sql = ""; // Use arithmetic
         jdbcTemplate.update(sql);
     }
+
+    public int getLikeCount(String albumName) {
+        String sql = "";
+        return jdbcTemplate.query(sql, (rs, rowNum) -> null).size();
+    }
+
+    public List<String> getLikes(String albumName) {
+        String sql = "";
+        return jdbcTemplate.query(sql, (rs, rowNum) -> rs.getString("username"));
+    }
+
+    public boolean isLikedBy(String albumName) {
+        String sql = "";
+        return jdbcTemplate.query(sql, (rs, rowNum) -> null).size() == 1;
+    }
+
+    public boolean isReleasedInCountry(String albumName) {
+        String sql = "";
+        return jdbcTemplate.query(sql, (rs, rowNum) -> null).size() == 1;
+    }
 }

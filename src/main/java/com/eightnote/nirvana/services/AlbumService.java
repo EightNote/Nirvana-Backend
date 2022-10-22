@@ -31,4 +31,20 @@ public class AlbumService {
     public void createAlbum(String albumName) {
         albumDAO.createAlbum(albumName);
     }
+
+    public int getLikeCount(String albumName) {
+        return albumDAO.getLikeCount(albumName);
+    }
+
+    public List<String> getLikes(String albumName) {
+        return albumDAO.getLikes(albumName);
+    }
+
+    public boolean isLikedBy(String albumName) {
+        return albumDAO.isLikedBy(albumName);
+    }
+
+    public boolean isReleasedInCountry(String albumName) {
+        return albumDAO.isReleasedInCountry(albumName);
+    }
 }
