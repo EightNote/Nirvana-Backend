@@ -8,18 +8,17 @@ public class Event {
     private  final Date date;
     private final Time time;
     private final String venue;
-    private final String registration;
+    private final String registrationLink;
     private final String eventPoster;
     private final int artistID;
     private final int countryID;
-
 
     public Event(int id, Date date, Time time, String venue, String registration, String eventPoster, int artistID, int countryID) {
         this.id = id;
         this.date = date;
         this.time = time;
         this.venue = venue;
-        this.registration = registration;
+        this.registrationLink = registration;
         this.eventPoster = eventPoster;
         this.artistID = artistID;
         this.countryID = countryID;
@@ -41,8 +40,8 @@ public class Event {
         return venue;
     }
 
-    public String getRegistration() {
-        return registration;
+    public String getRegistrationLink() {
+        return registrationLink;
     }
 
     public String getEventPoster() {
