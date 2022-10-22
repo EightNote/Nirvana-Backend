@@ -67,4 +67,21 @@ public class PlaylistDAO {
         String sql = "";
         return jdbcTemplate.query(sql, (rs, id) -> rs.getString("username"));
     }
+
+    public void like(String username, String playlistName) {
+        String sql = "";
+        jdbcTemplate.update(sql, username, playlistName);
+    }
+
+    public String trackAddedBy(String playlistName, String trackName) {
+        String sql = "";
+        return jdbcTemplate.queryForObject(sql, (rs, id) -> rs.getString("added_by"));
+    }
+
+    public String getOwner(String playlistName) {
+        String sql = "";
+        Playlist p = jdbcTemplate.queryForObject(playlistName, PlaylistRowMapper.playListRowMapper);
+        if (p.getCreatedByArtist() != null) return p.getCreatedByArtist();
+        return p.getCreatedByUser();
+    }
 }

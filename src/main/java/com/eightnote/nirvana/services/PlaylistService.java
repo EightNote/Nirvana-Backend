@@ -57,4 +57,16 @@ public class PlaylistService {
     public List<String> getLikes(String playlistName) {
         return playlistDAO.getLikes(playlistName);
     }
+
+    public void like(String username, String playlistName) {
+        playlistDAO.like(username, playlistName);
+    }
+
+    public String trackAddedBy(String playlistName, String trackName) {
+        return playlistDAO.trackAddedBy(playlistName, trackName);
+    }
+
+    public String getOwner(String playlistName) {
+        return playlistDAO.getOwner(playlistName);
+    }
 }
