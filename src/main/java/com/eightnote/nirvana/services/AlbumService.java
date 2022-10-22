@@ -28,8 +28,8 @@ public class AlbumService {
         return albumDAO.getReleaseCountries(album);
     }
 
-    public void createAlbum(String albumName) {
-        albumDAO.createAlbum(albumName);
+    public void createAlbum(String albumName, String albumLogo, String artistId, int genreId) {
+        albumDAO.createAlbum(albumName, albumLogo, artistId, genreId);
     }
 
     public int getLikeCount(String albumName) {

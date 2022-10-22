@@ -24,9 +24,9 @@ public class AlbumDAO {
         return jdbcTemplate.queryForObject(sql, AlbumRowMapper.albumRowMapper);
     }
 
-    public void createAlbum(String albumName) {
+    public void createAlbum(String albumName, String albumLogo, String artistId, int genreId) {
         String sql = "";
-        jdbcTemplate.update(sql, albumName);
+        jdbcTemplate.update(sql, albumName, albumLogo, artistId, genreId);
     }
 
     public List<Country> getReleaseCountries(String album) {
