@@ -19,23 +19,12 @@ public class CountryDAO {
         this.jdbcTemplate = jdbcTemplate;
     }
     public void addCountry(String countryName) throws DataAccessException {
-        String sql = "";
-        try {
-            jdbcTemplate.update(sql, countryName);
-        }
-        catch (DataAccessException d) {
-           throw d;
-        }
-    }
-
-    public boolean deleteCountry(int id) {
-        String sql = "";
-        jdbcTemplate.update(sql, id);
-        return true;
+        String sql = "INSERT INTO Country(name) VALUES (?);";
+        jdbcTemplate.update(sql, countryName);
     }
 
     public List<Country> getAllCountries() {
-        String sql = "";
+        String sql = "SELECT * FROM Country;";
         return jdbcTemplate.query(sql, CountryRowMapper.countryRowMapper);
     }
 
