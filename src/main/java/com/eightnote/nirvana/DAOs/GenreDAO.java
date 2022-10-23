@@ -21,17 +21,23 @@ public class GenreDAO {
     }
 
     public List<Track> getTracks(String genre) {
-        String sql = "";
+        String sql =
+                "SELECT id, audio_file, track_length, explicit_content, writer, composer, producer, lyrics, album_id " +
+                "FROM Track WHERE album_id " +
+                        "IN " +
+                            "(SELECT Album.id FROM Album " +
+                                "WHERE Album.genre_id IN (SELECT Genre.id FROM Genre WHERE Genre.name = %s)" +
+                            ");";
         return jdbcTemplate.query(sql, TrackRowMapper.trackRowMapper);
     }
 
     public void createGenre(String genreName) {
-        String sql = "";
+        String sql = "INSERT INTO Genre(name) VALUES (?)";
         jdbcTemplate.update(sql, genreName);
     }
 
     public Genre getGenre(String genreName) {
-        String sql = "";
+        String sql = "SELECT * FROM Genre WHERE name = %s".formatted(genreName);
         return jdbcTemplate.queryForObject(sql, GenreRowMapper.genreRowMapper);
     }
 }
