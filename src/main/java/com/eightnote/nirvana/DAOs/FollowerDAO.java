@@ -18,8 +18,13 @@ public class FollowerDAO {
     }
 
     public List<UserDetails> getFollowersOf(String username) {
-        String sql = "%s".formatted(username);
+        String sql = "SELECT FROM Followers WHERE artist='%s'".formatted(username);
         return jdbcTemplate.query(sql, FollowerRowMapper.followerRowMapper);
+    }
+
+    public boolean isFollowedBy(String username, String artist) {
+        String sql = "SELECT FROM Followers WHERE artist='%s' AND followed_by='%s".formatted(artist, username);
+        return jdbcTemplate.query(sql, FollowerRowMapper.followerRowMapper).isEmpty();
     }
 
     public void addFollower(UserDetails user1, UserDetails user2) {
