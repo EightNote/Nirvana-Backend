@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.Objects;
+
 @Component
 public class AlbumService {
     @Autowired
@@ -16,8 +18,8 @@ public class AlbumService {
         this.albumDAO = albumDAO;
     }
 
-    public int like(String albumName) {
-        albumDAO.like(albumName);
+    public int toggleLike(String username, String albumName) {
+        albumDAO.toggleLike(username , albumName, isLikedBy(username, albumName));
         return albumDAO.getAlbum(albumName).getLikes();
     }
     public Album getAlbum(String albumName) {
@@ -33,18 +35,22 @@ public class AlbumService {
     }
 
     public int getLikeCount(String albumName) {
-        return albumDAO.getLikeCount(albumName);
+        return albumDAO.getLikes(albumName).size();
     }
 
     public List<String> getLikes(String albumName) {
         return albumDAO.getLikes(albumName);
     }
 
-    public boolean isLikedBy(String albumName) {
-        return albumDAO.isLikedBy(albumName);
+    public boolean isLikedBy(String username, String albumName) {
+        return albumDAO.getLikes(albumName).contains(username);
     }
 
-    public boolean isReleasedInCountry(String albumName) {
-        return albumDAO.isReleasedInCountry(albumName);
+    public boolean isReleasedInCountry(String albumName, String countryName) {
+        var released_countries = albumDAO.getReleaseCountries(albumName);
+        for (var c : released_countries) {
+            if (c.getName().equals(countryName)) return true;
+        }
+        return false;
     }
 }

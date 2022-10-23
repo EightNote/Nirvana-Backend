@@ -1,21 +1,23 @@
 package com.eightnote.nirvana.models;
 
-import org.springframework.stereotype.Component;
-
 public class Album {
     private final int id;
     private final int artistId;
     private final int likeCount;
+
+    private final String albumLogoUrl;
     private final String albumTitle;
     private final String genre;
 
-    public Album(int id, int artistId , String albumTitle, String genre, int likeCount) {
+    public Album(int id, int artistId, int likeCount, String albumLogoUrl, String albumTitle, String genre) {
         this.id = id;
         this.artistId = artistId;
+        this.likeCount = likeCount;
+        this.albumLogoUrl = albumLogoUrl;
         this.albumTitle = albumTitle;
         this.genre = genre;
-        this.likeCount = likeCount;
     }
+
 
     public int getId() {
         return id;

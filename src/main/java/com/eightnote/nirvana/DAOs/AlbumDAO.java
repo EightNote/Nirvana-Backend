@@ -20,42 +20,47 @@ public class AlbumDAO {
     }
 
     public Album getAlbum(String albumName) {
-        String sql = "";
+        String sql =
+                ("SELECT Album.id, album_title, album_logo, artist_id, name as genre, COUNT(liked_by_id) as likes " +
+                "FROM Album, Genre, AlbumLikes " +
+                "WHERE genre_id = Genre.id AND Album.id = album_id " +
+                "GROUP BY album_id HAVING album_title = %s;")
+                .formatted(albumName);
         return jdbcTemplate.queryForObject(sql, AlbumRowMapper.albumRowMapper);
     }
 
     public void createAlbum(String albumName, String albumLogo, String artistId, int genreId) {
-        String sql = "";
+        String sql = "INSERT INTO Album(album_title, album_logo, artist_id, genre_id) VALUES(?, ?, ?, ?);";
         jdbcTemplate.update(sql, albumName, albumLogo, artistId, genreId);
     }
 
     public List<Country> getReleaseCountries(String album) {
-        String sql = "";
+        String sql =
+                "SELECT Country.id, Country.name FROM Album, AlbumReleaseInfo, Country " +
+                ("WHERE " +
+                        "Album.id = AlbumReleaseInfo.album_id " +
+                        "AND AlbumReleaseInfo.country_id = Country.id " +
+                        "AND album_title = %s")
+                        .formatted(album);
         return jdbcTemplate.query(sql, CountryRowMapper.countryRowMapper);
     }
 
-    public void like(String album) {
-        String sql = ""; // Use arithmetic
+    public void toggleLike(String username, String album, boolean unfollow) {
+        String sql = unfollow ? "DELETE FROM AlbumLikes " +
+                "WHERE " +
+                "album_id IN (SELECT Album.id FROM Album WHERE album_title = %s) " +
+                "AND liked_by_id = %s".formatted(album, username) :
+
+                "INSERT INTO AlbumLikes(album_id, like_by_id) " +
+                        "VALUES ((SELECT id FROM Album WHERE album_title = %s), %s);".formatted(album, username);
         jdbcTemplate.update(sql);
     }
 
-    public int getLikeCount(String albumName) {
-        String sql = "";
-        return jdbcTemplate.query(sql, (rs, rowNum) -> null).size();
-    }
-
     public List<String> getLikes(String albumName) {
-        String sql = "";
+        String sql =
+                ("SELECT liked_by_id FROM AlbumLikes " +
+                "WHERE Album.id IN (SELECT id FROM ALBUM WHERE album_title = %s);")
+                .formatted(albumName);
         return jdbcTemplate.query(sql, (rs, rowNum) -> rs.getString("username"));
-    }
-
-    public boolean isLikedBy(String albumName) {
-        String sql = "";
-        return jdbcTemplate.query(sql, (rs, rowNum) -> null).size() == 1;
-    }
-
-    public boolean isReleasedInCountry(String albumName) {
-        String sql = "";
-        return jdbcTemplate.query(sql, (rs, rowNum) -> null).size() == 1;
     }
 }
