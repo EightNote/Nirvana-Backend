@@ -27,7 +27,7 @@ public class TrackService {
     }
 
     public String getArtist(String track) {
-        return  trackDao.getArtist(track);
+        return  trackDao.getAlbum(track).getArtistId();
     }
 
     public List<String> getLikes(String track) {
@@ -35,6 +35,6 @@ public class TrackService {
     }
 
     public boolean isLikedBy(String track, String username) {
-        return  trackDao.isLikedBy(username, track);
+        return  trackDao.getLikes(track).contains(username);
     }
 }

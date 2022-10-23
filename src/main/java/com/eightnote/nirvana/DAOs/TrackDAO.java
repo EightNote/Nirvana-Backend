@@ -34,18 +34,8 @@ public class TrackDAO {
         return jdbcTemplate.queryForObject(sql, AlbumRowMapper.albumRowMapper);
     }
 
-    public String getArtist(String track) {
-        String sql = "";
-        return jdbcTemplate.queryForObject(sql, (rs, rowNum) -> rs.getString("artist_name"));
-    }
-
     public List<String> getLikes(String track) {
         String sql = "";
         return jdbcTemplate.query(sql, (rs, rowNum) -> rs.getString("username"));
-    }
-
-    public boolean isLikedBy(String track, String username) {
-        String sql = "";
-        return jdbcTemplate.query(sql, (rs, rowNum) -> null).size() == 1;
     }
 }
