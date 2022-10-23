@@ -87,7 +87,7 @@ public class PlaylistController {
 
     @GetMapping("/get-participants/{playlist}")
     public ResponseEntity getParticipants(@PathVariable("playlist") String playlistName) {
-        return new ResponseEntity<>(playlistService.getUserName(playlistName), HttpStatus.OK);
+        return new ResponseEntity<>(playlistService.getParticipants(playlistName), HttpStatus.OK);
     }
 
     @GetMapping("/contains-track")
@@ -139,7 +139,7 @@ public class PlaylistController {
     @GetMapping("/is-participant/")
     public ResponseEntity isParticipant(@RequestParam("user") String username, @RequestParam("playlist") String playlistName) {
         List<String> participants = playlistService.getLikes(playlistName);
-        boolean isParticipant = playlistService.getUserName(playlistName).contains(username);
+        boolean isParticipant = playlistService.getParticipants(playlistName).contains(username);
 
         return new ResponseEntity<>(isParticipant, HttpStatus.OK);
     }

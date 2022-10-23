@@ -26,8 +26,8 @@ public class PlaylistService {
         return playlistDAO.getPlaylist(playlistName);
     }
 
-    public List<String> getUserName(String playlistName) {
-        return playlistDAO.getUserNames(playlistName);
+    public List<String> getParticipants(String playlistName) {
+        return playlistDAO.getParticipants(playlistName);
     }
 
     public void createUserPlaylist(String name, String desc, String type, String visibility, String createdByUser) {
@@ -51,7 +51,7 @@ public class PlaylistService {
     }
 
     public boolean containsTrack(String playlistName, String trackName) {
-        return playlistDAO.containsTrack(playlistName, trackName);
+        return playlistDAO.getTracks(playlistName).contains(trackName);
     }
 
     public List<String> getLikes(String playlistName) {
@@ -59,7 +59,7 @@ public class PlaylistService {
     }
 
     public void like(String username, String playlistName) {
-        playlistDAO.like(username, playlistName);
+        playlistDAO.toggleLike(username, playlistName);
     }
 
     public String trackAddedBy(String playlistName, String trackName) {

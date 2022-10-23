@@ -30,7 +30,7 @@ public class PlaylistDAO {
         return jdbcTemplate.queryForObject(sql, PlaylistRowMapper.playListRowMapper);
     }
 
-    public List<String> getUserNames(String playlistName) {
+    public List<String> getParticipants(String playlistName) {
         String sql = "";
         return jdbcTemplate.query(sql, (rs, index) -> rs.getString("username"));
     }
@@ -40,7 +40,7 @@ public class PlaylistDAO {
         created_by_artist = created_by_artist == null ? "NULL" : created_by_artist;
 
         String sql = "";
-        jdbcTemplate.update(sql, name, desc, type, visibility, created_by_artist, created_by_artist);
+        jdbcTemplate.update(sql, name, desc, type, visibility, created_by_user, created_by_artist);
     }
 
     public void updatePlaylistDescription(String playlistName, String description) {
@@ -58,17 +58,12 @@ public class PlaylistDAO {
         jdbcTemplate.update(sql);
     }
 
-    public boolean containsTrack(String playlistName, String trackName) {
-        String sql = "";
-        return jdbcTemplate.query(sql, (rs, id) -> null).size() == 1;
-    }
-
     public List<String> getLikes(String playlistName) {
         String sql = "";
         return jdbcTemplate.query(sql, (rs, id) -> rs.getString("username"));
     }
 
-    public void like(String username, String playlistName) {
+    public void toggleLike(String username, String playlistName) {
         String sql = "";
         jdbcTemplate.update(sql, username, playlistName);
     }
