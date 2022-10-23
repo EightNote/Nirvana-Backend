@@ -22,8 +22,8 @@ public class FollowerDAO {
         return jdbcTemplate.query(sql, FollowerRowMapper.followerRowMapper);
     }
 
-    public boolean isFollowedBy(String username, String artist) {
-        String sql = "SELECT FROM Followers WHERE artist='%s' AND followed_by='%s".formatted(artist, username);
+    public boolean isFollowedBy(String artist, String user) {
+        String sql = "SELECT FROM Followers WHERE artist='%s' AND followed_by='%s".formatted(artist, user);
         return jdbcTemplate.query(sql, FollowerRowMapper.followerRowMapper).isEmpty();
     }
 
