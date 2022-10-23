@@ -4,27 +4,21 @@ R Read / GetMapping
 U Update / PutMapping
 D Delete / DeleteMapping
 
+# --------- `Parth` ------------------
+SQL:
+```
+PlaylistDAO
+```
+
 
 # ----------- `Soumik` ------------
 
 Artist: 12
 
-    CRUD;
-
-    isFollowedBy();
-
-    getNationality();
-
+    CRUD; // Authentication
     getRecordLabel();
-
     setRecordLabel();
-
-    getAlbums();
-
     getPlaylists();
-
-    getFollwors();
-
     getEvents();
 
 # --------- `Amit` --------------
@@ -32,12 +26,16 @@ Artist: 12
 Album:
 
     getReleaseInfo();
-
     like()
 
 Track:
 
     like()
+SQL:
+```
+EventDAO Update queries
+TrackDAO queries
+```
 
 
 # --------- `Apoorve` -------------
@@ -57,13 +55,4 @@ make album name unique
 ```
 Exception Handling
 ```
-
-# --------- `SQL` ------------------ 
-```
-PlaylistDAO
-TrackDAO
-EventDAO
-FollowerDAO
-```
-
 `
