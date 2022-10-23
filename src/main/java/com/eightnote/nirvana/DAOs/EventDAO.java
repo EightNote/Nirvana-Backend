@@ -23,12 +23,12 @@ public class EventDAO {
     }
 
     public Event getEvent(int id) {
-        String sql = "";
+        String sql = "SELECT * FROM Event WHERE id = %d;".formatted(id);
         return jdbcTemplate.queryForObject(sql, EventRowMapper.eventRowMapper);
     }
 
     public List<Event> getAllEvents() {
-        String sql = "";
+        String sql = "SELECT * FROM Event;";
         return jdbcTemplate.query(sql, EventRowMapper.eventRowMapper);
     }
 

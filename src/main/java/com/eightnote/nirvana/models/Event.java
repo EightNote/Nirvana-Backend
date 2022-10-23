@@ -10,10 +10,10 @@ public class Event {
     private final String venue;
     private final String registrationLink;
     private final String eventPoster;
-    private final int artistID;
+    private final String artistID;
     private final int countryID;
 
-    public Event(int id, Date date, Time time, String venue, String registration, String eventPoster, int artistID, int countryID) {
+    public Event(int id, Date date, Time time, String venue, String registration, String eventPoster, String artistID, int countryID) {
         this.id = id;
         this.date = date;
         this.time = time;
@@ -48,7 +48,7 @@ public class Event {
         return eventPoster;
     }
 
-    public int getArtistID() {
+    public String getArtistID() {
         return artistID;
     }
 

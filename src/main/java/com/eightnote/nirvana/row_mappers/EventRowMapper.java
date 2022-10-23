@@ -13,7 +13,7 @@ public class EventRowMapper {
             rs.getString("venue"),
             rs.getString("registration"),
             rs.getString("eventPoster"),
-            rs.getInt("artistID"),
+            rs.getString("artistID"),
             rs.getInt("countryID")
     );
 }
