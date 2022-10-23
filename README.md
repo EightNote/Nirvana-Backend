@@ -63,6 +63,7 @@ Exception Handling
 PlaylistDAO
 TrackDAO
 EventDAO
+FollowerDAO
 ```
 
 `
