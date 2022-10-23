@@ -20,7 +20,7 @@ public class ArtistPhotosDAO {
     }
 
     public List<ArtistPhotos> getImages(String artistName) {
-        String sql = "";
+        String sql = "SELECT photo as link, date_added FROM ArtistPhotos WHERE artist_id = %s);".formatted(artistName);
         return jdbcTemplate.query(sql, ArtistPhotosRowMapper.imageLinksRowMapper);
     }
 

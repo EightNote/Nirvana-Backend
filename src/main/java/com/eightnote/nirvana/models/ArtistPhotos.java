@@ -2,26 +2,18 @@ package com.eightnote.nirvana.models;
 
 import org.springframework.stereotype.Component;
 
+import java.util.Date;
+
 public class ArtistPhotos {
-    private final int srno;
+    private final Date date;
     private final String url;
-    private final String description;
 
-    public ArtistPhotos(Integer srno, String url, String description) {
-        this.srno = srno;
+    public ArtistPhotos(String url, Date date) {
+        this.date = date;
         this.url = url;
-        this.description = description;
-    }
-
-    public int getSrno() {
-        return srno;
     }
 
     public String getUrl() {
         return url;
-    }
-
-    public String getDescription() {
-        return description;
     }
 }
