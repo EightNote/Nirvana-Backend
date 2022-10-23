@@ -16,7 +16,7 @@ public class RecordLabelDAO {
     }
 
     public RecordLabel getRecordLabel(Integer id) {
-        String sql = "SELECT * FROM public.RecordLabel WHERE id=" + id;
+        String sql = "SELECT * FROM public.RecordLabel WHERE id= %d".formatted(id);
         return jdbcTemplate.queryForObject(sql, RecordLabelRowMapper.recordLabelRowMapper);
     }
 }
