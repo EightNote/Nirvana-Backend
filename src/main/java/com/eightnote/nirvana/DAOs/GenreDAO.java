@@ -27,7 +27,7 @@ public class GenreDAO {
                         "IN " +
                             "(SELECT Album.id FROM Album " +
                                 "WHERE Album.genre_id IN (SELECT Genre.id FROM Genre WHERE Genre.name = %s)" +
-                            ");";
+                            ");".formatted(genre);
         return jdbcTemplate.query(sql, TrackRowMapper.trackRowMapper);
     }
 
