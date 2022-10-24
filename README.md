@@ -10,9 +10,7 @@ PlaylistController:
 Make PlaylistController consistent with PlaylistService 
 ```
 
-
 # ----------- `Soumik` ------------
-
 Artist: 12
 
     CRUD; // Authentication
@@ -22,18 +20,15 @@ Artist: 12
     getEvents();
 
 # --------- `Amit` --------------
-
 Album:
 
     getReleaseInfo();
-    like()
 
 Track:
 
     like()
 SQL:
 ```
-EventDAO Update queries
 TrackDAO queries
 ```
 
