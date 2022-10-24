@@ -7,7 +7,7 @@ D Delete / DeleteMapping
 # --------- `Parth` ------------------
 SQL:
 ```
-PlaylistDAO
+Make PlaylistController consistent with PlaylistService 
 ```
 
 
