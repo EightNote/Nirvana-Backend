@@ -5,9 +5,9 @@ U Update / PutMapping
 D Delete / DeleteMapping
 
 # --------- `Parth` ------------------
-SQL:
+PlaylistController:
 ```
-PlaylistDAO
+Make PlaylistController consistent with PlaylistService 
 ```
 
 
