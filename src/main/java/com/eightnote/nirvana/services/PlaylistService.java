@@ -83,7 +83,7 @@ public class PlaylistService {
     public String trackAddedBy(String username, String playlistName, String trackName) {
         var tracks = playlistDAO.getTracks(getPlaylistID(username, playlistName));
         for (var track : tracks)
-            if (track.getTitle().equals(playlistName))
+            if (track.getTitle().equals(trackName))
                 return track.getTrackAddedBy();
         return "";
     }
@@ -103,5 +103,9 @@ public class PlaylistService {
         }
 
         return false;
+    }
+
+    public List<Playlist> getPlaylistByUser(String username) {
+        return playlistDAO.getPlaylistByUser(username);
     }
 }

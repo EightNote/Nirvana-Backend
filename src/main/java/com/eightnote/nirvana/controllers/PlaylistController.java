@@ -16,8 +16,8 @@ import java.util.List;
 @Component
 @RequestMapping("/playlist")
 public class PlaylistController {
-    private GrantedAuthority artistAuthority = () -> "ARTIST";
-    private GrantedAuthority userAuthority = () -> "USER";
+    final private GrantedAuthority artistAuthority = () -> "ARTIST";
+    final private GrantedAuthority userAuthority = () -> "USER";
 
     @Autowired
     private final PlaylistService playlistService;
@@ -145,10 +145,15 @@ public class PlaylistController {
     }
 
     @GetMapping("/is-participant/")
-    public ResponseEntity isParticipant(@RequestParam("user") String username, @RequestParam("playlist") String playlistName, @RequestParam("ownerName") String ownerUsername) {
-        List<String> participants = playlistService.getLikes(ownerUsername, playlistName);
+    public ResponseEntity<Boolean> isParticipant(@RequestParam("user") String username, @RequestParam("playlist") String playlistName, @RequestParam("ownerName") String ownerUsername) {
         boolean isParticipant = playlistService.getParticipants(ownerUsername, playlistName).contains(username);
 
         return new ResponseEntity<>(isParticipant, HttpStatus.OK);
+    }
+
+    @GetMapping("/user/{user}/")
+    public  ResponseEntity<List<Playlist>> getPlaylistsByUser(@RequestParam("user") String username) {
+        List<Playlist> lp = playlistService.getPlaylistByUser(username);
+        return new ResponseEntity<>(lp, HttpStatus.OK);
     }
 }
