@@ -20,7 +20,7 @@ public class TrackDAO {
     }
 
     public Track getTrack(String trackName) {
-        String sql="";
+        String sql="SELECT * FROM Track WHERE title = %s".formatted(trackName);
         return jdbcTemplate.queryForObject(sql, TrackRowMapper.trackRowMapper);
     }
 
@@ -37,5 +37,16 @@ public class TrackDAO {
     public List<String> getLikes(String track) {
         String sql = "";
         return jdbcTemplate.query(sql, (rs, rowNum) -> rs.getString("username"));
+    }
+
+    public void toggleLike(String likedByUsername, String trackName, boolean unlike) {
+        String sql = unlike ? ("DELETE FROM TrackLikes " +
+                "WHERE " +
+                "track_id IN (SELECT id FROM Track WHERE title = %s)) " +
+                "AND liked_by_id = %s").formatted(trackName, likedByUsername) :
+
+                "INSERT INTO TrackLikes(((SELECT id FROM Track WHERE title = %s)), like_by_id) " +
+                        "VALUES (%s, %s);".formatted(trackName, likedByUsername);
+        jdbcTemplate.update(sql);
     }
 }

@@ -37,4 +37,12 @@ public class TrackService {
     public boolean isLikedBy(String track, String username) {
         return  trackDao.getLikes(track).contains(username);
     }
+
+    public boolean hasLiked(String username,  String trackName) {
+        return getLikes(trackName).contains(username);
+    }
+    public void toggleLike(String likedByUsername, String trackName) {
+        boolean hasUserLiked = hasLiked(likedByUsername, trackName);
+        trackDao.toggleLike(likedByUsername, trackName, hasUserLiked);
+    }
 }
