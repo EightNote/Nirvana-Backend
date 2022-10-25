@@ -32,7 +32,7 @@ public class PlaylistDAO {
     }
 
     public List<String> getParticipants(int playlistID) {
-        String sql = "SELECT participant_id FROM PlaylistParticipation WHERE playlist_id = %d;";
+        String sql = "SELECT participant_id FROM PlaylistParticipation WHERE playlist_id = %d;".formatted(playlistID);
         return jdbcTemplate.query(sql, (rs, index) -> rs.getString("username"));
     }
 
@@ -61,7 +61,7 @@ public class PlaylistDAO {
     }
 
     public List<String> getLikes(int playlistID) {
-        String sql = "SELECT liked_by_id as username FROM PlaylistLikes WHERE playlist_id = %d;";
+        String sql = "SELECT liked_by_id as username FROM PlaylistLikes WHERE playlist_id = %d;".formatted(playlistID);
         return jdbcTemplate.query(sql, (rs, id) -> rs.getString("username"));
     }
 
@@ -83,5 +83,10 @@ public class PlaylistDAO {
         Integer id = jdbcTemplate.queryForObject(sql, (rs, i) -> rs.getInt("id"));
         if (id == null) return -1;
         return id;
+    }
+
+    public List<Playlist> getPlaylistByUser(String username) {
+        String sql = "SELECT * FROM Playlist WHERE (created_by_artist_id = %s OR created_by_user_id = %s)".formatted(username, username);
+        return jdbcTemplate.query(sql, PlaylistRowMapper.playListRowMapper);
     }
 }

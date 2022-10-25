@@ -13,6 +13,7 @@ import java.util.List;
 
 @Component
 @RestController
+@RequestMapping("/album")
 public class AlbumController {
     @Autowired
     private final AlbumService albumService;
