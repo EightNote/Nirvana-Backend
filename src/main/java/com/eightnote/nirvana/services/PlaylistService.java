@@ -21,6 +21,10 @@ public class PlaylistService {
         return playlistDAO.getTracks(getPlaylistID(username, playlistName));
     }
 
+    public List<PlaylistTrackInfo> getTracks(int playlistID) {
+        return playlistDAO.getTracks(playlistID);
+    }
+
     public int getPlaylistID(String username, String playlistName) {
         return playlistDAO.getPlaylistID(username, playlistName);
     }
@@ -89,5 +93,15 @@ public class PlaylistService {
         String userCreator = playlistDAO.getPlaylist(playlistID).getCreatedByUser();
         if (userCreator == null) return playlistDAO.getPlaylist(playlistID).getCreatedByArtist();
         return userCreator;
+    }
+
+    public boolean containsTrack(String ownerUsername, String playlistName, String trackName) {
+        int playlistID = getPlaylistID(ownerUsername, playlistName);
+        var track_list = getTracks(playlistID);
+        for (PlaylistTrackInfo pti : track_list) {
+            if (pti.getTitle().equals(trackName)) return true;
+        }
+
+        return false;
     }
 }
