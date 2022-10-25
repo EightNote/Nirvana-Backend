@@ -53,4 +53,8 @@ public class AlbumService {
         }
         return false;
     }
+
+    public List<Album> getAlbumsByArtist(String artist) {
+        return albumDAO.getAlbumsByArtist(artist);
+    }
 }

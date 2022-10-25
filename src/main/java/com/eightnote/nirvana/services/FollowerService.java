@@ -27,4 +27,8 @@ public class FollowerService {
     public List<UserDetails> getFollowers(String username) {
         return followerDAO.getFollowersOf(username);
     }
+
+    public boolean isFollowedBy(String artist, String user) {
+        return followerDAO.isFollowedBy(artist, user);
+    }
 }
