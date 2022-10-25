@@ -10,7 +10,6 @@ Artist: 12
     CRUD; // Authentication
     getRecordLabel();
     setRecordLabel();
-    getPlaylists();
     getEvents();
 
 # --------- `Amit` --------------
