@@ -4,12 +4,6 @@ R Read / GetMapping
 U Update / PutMapping
 D Delete / DeleteMapping
 
-# --------- `Parth` ------------------
-PlaylistController:
-```
-Make PlaylistController consistent with PlaylistService 
-```
-
 # ----------- `Soumik` ------------
 Artist: 12
 
@@ -21,12 +15,7 @@ Artist: 12
 
 # --------- `Amit` --------------
 Album:
-
     getReleaseInfo();
-
-Track:
-
-    like()
 SQL:
 ```
 TrackDAO queries
