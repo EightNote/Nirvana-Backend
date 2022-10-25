@@ -33,17 +33,26 @@ public class EventDAO {
     }
 
     public void updateEventTime(int id, String time) {
-        String sql = "";
-        jdbcTemplate.update(sql, id, time);
+        String sql = "UPDATE Event " +
+                "SET time = ? " +
+                "WHERE id = ?;";
+
+        jdbcTemplate.update(sql, time, id);
     }
 
     public void updateEventDate(int id, String date) {
-        String sql = "";
-        jdbcTemplate.update(sql, id, date);
+        String sql = "UPDATE Event " +
+                "SET date = ? " +
+                "WHERE id = ?;";
+
+        jdbcTemplate.update(sql, date, id);
     }
 
     public void updateEventVenue(int id, String venue) {
-        String sql = "";
-        jdbcTemplate.update(sql, id, venue);
+        String sql = "UPDATE Event " +
+                "SET venue = ? " +
+                "WHERE id = ?;";
+
+        jdbcTemplate.update(sql, venue, id);
     }
 }
