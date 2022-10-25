@@ -45,11 +45,11 @@ public class AlbumDAO {
         return jdbcTemplate.query(sql, CountryRowMapper.countryRowMapper);
     }
 
-    public void toggleLike(String username, String album, boolean unfollow) {
-        String sql = unfollow ? "DELETE FROM AlbumLikes " +
+    public void toggleLike(String username, String album, boolean unlike) {
+        String sql = unlike ? ("DELETE FROM AlbumLikes " +
                 "WHERE " +
                 "album_id IN (SELECT Album.id FROM Album WHERE album_title = %s) " +
-                "AND liked_by_id = %s".formatted(album, username) :
+                "AND liked_by_id = %s").formatted(album, username) :
 
                 "INSERT INTO AlbumLikes(album_id, like_by_id) " +
                         "VALUES ((SELECT id FROM Album WHERE album_title = %s), %s);".formatted(album, username);

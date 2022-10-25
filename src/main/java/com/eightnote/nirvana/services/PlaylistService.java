@@ -2,7 +2,7 @@ package com.eightnote.nirvana.services;
 
 import com.eightnote.nirvana.DAOs.PlaylistDAO;
 import com.eightnote.nirvana.models.Playlist;
-import com.eightnote.nirvana.models.Track;
+import com.eightnote.nirvana.models.PlaylistTrackInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -17,17 +17,25 @@ public class PlaylistService {
         this.playlistDAO = playlistDAO;
     }
 
-    public List<Track> getTracks(String playlistName) {
-        return playlistDAO.getTracks(playlistName);
+    public List<PlaylistTrackInfo> getTracks(String username, String playlistName) {
+        return playlistDAO.getTracks(getPlaylistID(username, playlistName));
+    }
+
+    public List<PlaylistTrackInfo> getTracks(int playlistID) {
+        return playlistDAO.getTracks(playlistID);
+    }
+
+    public int getPlaylistID(String username, String playlistName) {
+        return playlistDAO.getPlaylistID(username, playlistName);
     }
 
 
-    public Playlist getPlaylist(String playlistName) {
-        return playlistDAO.getPlaylist(playlistName);
+    public Playlist getPlaylist(String username, String playlistName) {
+        return playlistDAO.getPlaylist(getPlaylistID(username, playlistName));
     }
 
-    public List<String> getUserName(String playlistName) {
-        return playlistDAO.getUserNames(playlistName);
+    public List<String> getParticipants(String username, String playlistName) {
+        return playlistDAO.getParticipants(getPlaylistID(username, playlistName));
     }
 
     public void createUserPlaylist(String name, String desc, String type, String visibility, String createdByUser) {
@@ -38,35 +46,62 @@ public class PlaylistService {
         playlistDAO.createPlaylist(name, desc, type, visibility, null, createdByArtist);
     }
 
-    public void updatePlaylistDescription(String playlistName, String description) {
-        playlistDAO.updatePlaylistDescription(playlistName, description);
+    public void updatePlaylistDescription(String username, String playlistName, String description) {
+        playlistDAO.updatePlaylistDescription(getPlaylistID(username, playlistName), description);
     }
 
-    public void updatePlaylistVisibility(String playlistName, String visibility) {
-        playlistDAO.updatePlaylistVisibility(playlistName, visibility);
+    public void updatePlaylistVisibility(String username, String playlistName, String visibility) {
+        playlistDAO.updatePlaylistVisibility(getPlaylistID(username, playlistName), visibility);
     }
 
-    public void deletePlaylist(String playlistName) {
-        playlistDAO.deletePlaylist(playlistName);
+    public void deletePlaylist(String username, String playlistName) {
+        playlistDAO.deletePlaylist(getPlaylistID(username, playlistName));
     }
 
-    public boolean containsTrack(String playlistName, String trackName) {
-        return playlistDAO.containsTrack(playlistName, trackName);
+//    public boolean containsTrack(String username, String playlistName, String trackName) {
+//        return playlistDAO.getTracks(getPlaylistID(username, playlistName)).contains(trackName);
+//    }
+
+    public List<String> getLikes(String username, String playlistName) {
+        return playlistDAO.getLikes(getPlaylistID(username, playlistName));
     }
 
-    public List<String> getLikes(String playlistName) {
-        return playlistDAO.getLikes(playlistName);
+    public List<String> getLikes(int playlistID) {
+        return playlistDAO.getLikes(playlistID);
     }
 
-    public void like(String username, String playlistName) {
-        playlistDAO.like(username, playlistName);
+    public void toggleLike(String ownerUsername, String likedByUsername, String playlistName) {
+        int playlistID = getPlaylistID(ownerUsername, playlistName);
+        boolean hasUserLiked = hasLiked(likedByUsername, playlistID);
+        playlistDAO.toggleLike(likedByUsername, playlistID, hasUserLiked);
     }
 
-    public String trackAddedBy(String playlistName, String trackName) {
-        return playlistDAO.trackAddedBy(playlistName, trackName);
+    public boolean hasLiked(String username,  int playlistID) {
+        return getLikes(playlistID).contains(username);
     }
 
-    public String getOwner(String playlistName) {
-        return playlistDAO.getOwner(playlistName);
+    public String trackAddedBy(String username, String playlistName, String trackName) {
+        var tracks = playlistDAO.getTracks(getPlaylistID(username, playlistName));
+        for (var track : tracks)
+            if (track.getTitle().equals(playlistName))
+                return track.getTrackAddedBy();
+        return "";
+    }
+
+    public String getOwner(String username, String playlistName) {
+        int playlistID = getPlaylistID(username, playlistName);
+        String userCreator = playlistDAO.getPlaylist(playlistID).getCreatedByUser();
+        if (userCreator == null) return playlistDAO.getPlaylist(playlistID).getCreatedByArtist();
+        return userCreator;
+    }
+
+    public boolean containsTrack(String ownerUsername, String playlistName, String trackName) {
+        int playlistID = getPlaylistID(ownerUsername, playlistName);
+        var track_list = getTracks(playlistID);
+        for (PlaylistTrackInfo pti : track_list) {
+            if (pti.getTitle().equals(trackName)) return true;
+        }
+
+        return false;
     }
 }

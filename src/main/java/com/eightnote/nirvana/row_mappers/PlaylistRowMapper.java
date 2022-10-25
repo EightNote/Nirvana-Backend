@@ -1,6 +1,7 @@
 package com.eightnote.nirvana.row_mappers;
 
 import com.eightnote.nirvana.models.Playlist;
+import com.eightnote.nirvana.models.PlaylistTrackInfo;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Component;
 

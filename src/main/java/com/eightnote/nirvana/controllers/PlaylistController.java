@@ -27,18 +27,19 @@ public class PlaylistController {
     }
 
     @GetMapping("/get-tracks/{playlist}")
-    public ResponseEntity getTrack(@PathVariable("playlist") String playlistName) {
-        return new ResponseEntity<>(playlistService.getTracks(playlistName), HttpStatus.OK);
+    public ResponseEntity getTrack(@PathVariable("playlist") String playlistName, @RequestParam("ownerUsername") String ownerUsername) {
+        return new ResponseEntity<>(playlistService.getTracks(ownerUsername, playlistName), HttpStatus.OK);
     }
 
     @GetMapping("/")
-    public ResponseEntity getPlaylist(@RequestParam("playlistName") String playlistName){
-        return new ResponseEntity<>(playlistService.getPlaylist(playlistName), HttpStatus.OK);
+    public ResponseEntity getPlaylist(@RequestParam("playlistName") String playlistName, @RequestParam("ownerUsername") String ownerUsername){
+        return new ResponseEntity<>(playlistService.getPlaylist(ownerUsername, playlistName), HttpStatus.OK);
     }
 
     @PostMapping("/")
     public ResponseEntity createPlaylist(
             @RequestParam("name") String playlistName,
+            @RequestParam("ownerUsername") String ownerUsername,
             @RequestParam("desc") String description,
             @RequestParam("type") String type,
             @RequestParam("vis") String visibility
@@ -53,74 +54,80 @@ public class PlaylistController {
             playlistService.createUserPlaylist(playlistName, description, type, visibility, loggedInUsername);
         }
 
-        Playlist playlist = playlistService.getPlaylist(playlistName);
+        String username = ""; // TODO: Get Username
+        Playlist playlist = playlistService.getPlaylist(ownerUsername, playlistName);
         return new ResponseEntity<>(playlist, HttpStatus.OK);
     }
 
     @PutMapping("/update-desc/")
     public ResponseEntity<Playlist> updatePlaylistDescription(
             @RequestParam(name = "name", defaultValue = "NULL") String playlistName,
+            @RequestParam("ownerName") String ownerUsername,
             @RequestParam(name = "desc", defaultValue = "NULL") String description
     ) {
-        playlistService.updatePlaylistDescription(playlistName, description);
+        playlistService.updatePlaylistDescription(ownerUsername, playlistName, description);
 
-        Playlist playlist = playlistService.getPlaylist(playlistName);
+        Playlist playlist = playlistService.getPlaylist(ownerUsername, playlistName);
         return new ResponseEntity<>(playlist, HttpStatus.OK);
     }
 
     @PutMapping("/update-visibility")
     public ResponseEntity updatePlaylistVisibility(
             @RequestParam(name = "name", defaultValue = "NULL") String playlistName,
+            @RequestParam("ownerName") String ownerUsername,
             @RequestParam(name = "visibility", defaultValue = "NULL") String visibility
     ) {
-        playlistService.updatePlaylistVisibility(playlistName, visibility);
+        String username = ""; // TODO: Get Username
+        playlistService.updatePlaylistVisibility(ownerUsername, playlistName, visibility);
 
-        Playlist playlist = playlistService.getPlaylist(playlistName);
+        Playlist playlist = playlistService.getPlaylist(ownerUsername, playlistName);
         return new ResponseEntity<>(playlist, HttpStatus.OK);
     }
 
     @DeleteMapping("/{playlist}")
-    public ResponseEntity deletePlaylist(@PathVariable("playlist") String playlistName) {
-        playlistService.deletePlaylist(playlistName);
+    public ResponseEntity deletePlaylist(@PathVariable("playlist") String playlistName, @RequestParam("ownerName") String ownerUsername) {
+        playlistService.deletePlaylist(ownerUsername, playlistName);
         return new ResponseEntity<>(true, HttpStatus.OK);
     }
 
     @GetMapping("/get-participants/{playlist}")
-    public ResponseEntity getParticipants(@PathVariable("playlist") String playlistName) {
-        return new ResponseEntity<>(playlistService.getUserName(playlistName), HttpStatus.OK);
+    public ResponseEntity getParticipants(@PathVariable("playlist") String playlistName, @RequestParam("ownerName") String ownerUsername) {
+        return new ResponseEntity<>(playlistService.getParticipants( ownerUsername, playlistName), HttpStatus.OK);
     }
 
     @GetMapping("/contains-track")
     public ResponseEntity containsTrack(
             @RequestParam("playlist") String playlistName,
+            @RequestParam("ownerUsername") String ownerUsername,
             @RequestParam("trackName") String trackName
     ){
-        boolean doesContain = playlistService.containsTrack(playlistName, trackName);
+        boolean doesContain = playlistService.containsTrack(ownerUsername, playlistName, trackName);
         return new ResponseEntity<>(doesContain, HttpStatus.OK);
     }
 
     @GetMapping("/likes/{playlist}")
-    public ResponseEntity getLikes(@PathVariable("playlist") String playlistName) {
-        List<String> likes = playlistService.getLikes(playlistName);
+    public ResponseEntity getLikes(@PathVariable("playlist") String playlistName, @RequestParam("ownerName") String ownerUsername) {
+        List<String> likes = playlistService.getLikes(ownerUsername, playlistName);
 
         return new ResponseEntity<>(likes, HttpStatus.OK);
     }
 
     @GetMapping("/like-count/{playlist}")
-    public ResponseEntity getLikeCount(@PathVariable("playlist") String playlistName) {
-        List<String> likes = playlistService.getLikes(playlistName);
+    public ResponseEntity getLikeCount(@PathVariable("playlist") String playlistName, @RequestParam("ownerName") String ownerUsername) {
+        List<String> likes = playlistService.getLikes(ownerUsername, playlistName);
 
         return new ResponseEntity<>(likes.size(), HttpStatus.OK);
     }
 
     @PostMapping("/like/")
-    public void likes(@RequestParam("user") String username, @RequestParam("playlist") String playlistName) {
-        playlistService.like(username, playlistName);
+    public void likes(@RequestParam("user") String ownerUsername, @RequestParam("playlist") String playlistName) {
+        String likedByUsername = ""; // TODO: Get Username
+        playlistService.toggleLike(ownerUsername, likedByUsername, playlistName);
     }
 
     @GetMapping("/is-liked-by/")
-    public ResponseEntity isLikedBy(@RequestParam("user") String username, @RequestParam("playlist") String playlistName) {
-        List<String> likes = playlistService.getLikes(playlistName);
+    public ResponseEntity isLikedBy(@RequestParam("user") String username, @RequestParam("playlist") String playlistName, @RequestParam("ownerName") String ownerUsername) {
+        List<String> likes = playlistService.getLikes(ownerUsername, playlistName);
         boolean doesLike = likes.contains(username);
 
         return new ResponseEntity<>(doesLike, HttpStatus.OK);
@@ -129,24 +136,19 @@ public class PlaylistController {
     @GetMapping("/track-added-by/{playlistName}/{trackName}/")
     public ResponseEntity trackAddedBy(
             @PathVariable("playlistName") String playlistName,
+            @RequestParam("ownerName") String ownerUsername,
             @PathVariable("trackName") String trackName
     ) {
-        String added_by = playlistService.trackAddedBy(playlistName, trackName);
+        String added_by = playlistService.trackAddedBy(ownerUsername, playlistName, trackName);
 
         return new ResponseEntity<>(added_by, HttpStatus.OK);
     }
 
     @GetMapping("/is-participant/")
-    public ResponseEntity isParticipant(@RequestParam("user") String username, @RequestParam("playlist") String playlistName) {
-        List<String> participants = playlistService.getLikes(playlistName);
-        boolean isParticipant = playlistService.getUserName(playlistName).contains(username);
+    public ResponseEntity isParticipant(@RequestParam("user") String username, @RequestParam("playlist") String playlistName, @RequestParam("ownerName") String ownerUsername) {
+        List<String> participants = playlistService.getLikes(ownerUsername, playlistName);
+        boolean isParticipant = playlistService.getParticipants(ownerUsername, playlistName).contains(username);
 
         return new ResponseEntity<>(isParticipant, HttpStatus.OK);
-    }
-
-    @GetMapping("/owner/{playlist}")
-    public ResponseEntity getOwner(@PathVariable("playlist") String playlistName) {
-        String owner = playlistService.getOwner(playlistName);
-        return new ResponseEntity<>(owner, HttpStatus.OK);
     }
 }
