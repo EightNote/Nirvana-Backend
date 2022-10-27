@@ -119,7 +119,7 @@ public class PlaylistController {
         return new ResponseEntity<>(likes.size(), HttpStatus.OK);
     }
 
-    @PostMapping("/like/")
+    @PostMapping("/toggle-like/")
     public void likes(@RequestParam("user") String ownerUsername, @RequestParam("playlist") String playlistName) {
         String likedByUsername = ""; // TODO: Get Username
         playlistService.toggleLike(ownerUsername, likedByUsername, playlistName);
