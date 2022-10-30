@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 
 @Component
 @RestController
+@CrossOrigin
 @RequestMapping("user/")
 public class NirvanaUserController {
     @Autowired
