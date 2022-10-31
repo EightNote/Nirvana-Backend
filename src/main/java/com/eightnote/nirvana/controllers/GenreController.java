@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @Component
+@CrossOrigin
 @RequestMapping("/genre")
 public class GenreController {
     @Autowired

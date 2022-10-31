@@ -14,6 +14,7 @@ import java.util.List;
 
 @RestController
 @Component
+@CrossOrigin
 @RequestMapping("/playlist")
 public class PlaylistController {
     final private GrantedAuthority artistAuthority = () -> "ARTIST";
