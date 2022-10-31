@@ -12,4 +12,7 @@ public class PlaylistTrackInfo extends Track {
         return trackAddedBy;
     }
 
+    public void setTrackAddedBy(String trackAddedBy) {
+        this.trackAddedBy = trackAddedBy;
+    }
 }

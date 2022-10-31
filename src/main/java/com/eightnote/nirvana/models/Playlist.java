@@ -49,4 +49,32 @@ public class Playlist {
     public String getCreatedByArtist() {
         return createdByArtist;
     }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public void setVisibility(boolean visibility) {
+        this.visibility = visibility;
+    }
+
+    public void setCreatedByUser(String createdByUser) {
+        this.createdByUser = createdByUser;
+    }
+
+    public void setCreatedByArtist(String createdByArtist) {
+        this.createdByArtist = createdByArtist;
+    }
 }

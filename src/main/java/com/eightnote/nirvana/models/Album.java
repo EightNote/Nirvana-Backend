@@ -42,4 +42,28 @@ public class Album {
     public int getLikes() {
         return this.likeCount;
     }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setArtistId(String artistId) {
+        this.artistId = artistId;
+    }
+
+    public void setLikeCount(int likeCount) {
+        this.likeCount = likeCount;
+    }
+
+    public void setAlbumLogoUrl(String albumLogoUrl) {
+        this.albumLogoUrl = albumLogoUrl;
+    }
+
+    public void setAlbumTitle(String albumTitle) {
+        this.albumTitle = albumTitle;
+    }
+
+    public void setGenre(String genre) {
+        this.genre = genre;
+    }
 }

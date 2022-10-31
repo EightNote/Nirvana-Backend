@@ -74,4 +74,44 @@ public class Track {
     public int getAlbum_id() {
         return album_id;
     }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public void setAudio_file(String audio_file) {
+        this.audio_file = audio_file;
+    }
+
+    public void setTrack_length(int track_length) {
+        this.track_length = track_length;
+    }
+
+    public void setExplicit_content(Boolean explicit_content) {
+        this.explicit_content = explicit_content;
+    }
+
+    public void setWriter(String writer) {
+        this.writer = writer;
+    }
+
+    public void setComposer(String composer) {
+        this.composer = composer;
+    }
+
+    public void setProducer(String producer) {
+        this.producer = producer;
+    }
+
+    public void setLyrics(String lyrics) {
+        this.lyrics = lyrics;
+    }
+
+    public void setAlbum_id(int album_id) {
+        this.album_id = album_id;
+    }
 }

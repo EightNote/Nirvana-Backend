@@ -55,4 +55,36 @@ public class Event {
     public int getCountryID() {
         return countryID;
     }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
+    public void setTime(Time time) {
+        this.time = time;
+    }
+
+    public void setVenue(String venue) {
+        this.venue = venue;
+    }
+
+    public void setRegistrationLink(String registrationLink) {
+        this.registrationLink = registrationLink;
+    }
+
+    public void setEventPoster(String eventPoster) {
+        this.eventPoster = eventPoster;
+    }
+
+    public void setArtistID(String artistID) {
+        this.artistID = artistID;
+    }
+
+    public void setCountryID(int countryID) {
+        this.countryID = countryID;
+    }
 }

@@ -35,4 +35,56 @@ public class RecordLabel {
         this.facebook = facebook;
         this.instagram = instagram;
     }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public void setIs_active(boolean is_active) {
+        this.is_active = is_active;
+    }
+
+    public void setCreated_at(Date created_at) {
+        this.created_at = created_at;
+    }
+
+    public void setUpdated_at(Date updated_at) {
+        this.updated_at = updated_at;
+    }
+
+    public void setLabelName(String labelName) {
+        this.labelName = labelName;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public void setLogo(URL logo) {
+        this.logo = logo;
+    }
+
+    public void setTwitter(URL twitter) {
+        this.twitter = twitter;
+    }
+
+    public void setFacebook(URL facebook) {
+        this.facebook = facebook;
+    }
+
+    public void setInstagram(URL instagram) {
+        this.instagram = instagram;
+    }
 }

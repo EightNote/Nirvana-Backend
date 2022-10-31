@@ -16,4 +16,12 @@ public class ArtistPhotos {
     public String getUrl() {
         return url;
     }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
 }
