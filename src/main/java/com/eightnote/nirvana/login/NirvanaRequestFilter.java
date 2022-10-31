@@ -58,7 +58,8 @@ public class NirvanaRequestFilter extends OncePerRequestFilter {
 //        filterChain.doFilter(request, response);
 
         final String requestTokenHeader = request.getHeader("Authorization");
-
+        System.out.println();
+        System.out.println("Accessing using token: " + requestTokenHeader);
         String username = null;
         String jwtToken = null;
         System.out.println(requestTokenHeader);
