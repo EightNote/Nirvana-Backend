@@ -1,25 +1,25 @@
 package com.eightnote.nirvana.models;
 
 public class Track {
-    private final int id;
+    private int id;
 
-    private final String title;
+    private String title;
 
-    private final String audio_file;
+    private String audio_file;
 
-    private final int track_length;
+    private int track_length;
 
-    private final Boolean explicit_content;
+    private Boolean explicit_content;
 
-    private final String writer;
+    private String writer;
 
-    private final String composer;
+    private String composer;
 
-    private final String producer;
+    private String producer;
 
-    private final String lyrics;
+    private String lyrics;
 
-    private final int album_id;
+    private int album_id;
 
 
     public Track(int id, String title, String audio_file, int track_length, Boolean explicit_content, String writer, String composer, String producer, String lyrics, int album_id) {

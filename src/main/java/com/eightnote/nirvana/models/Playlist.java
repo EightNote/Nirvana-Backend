@@ -3,13 +3,13 @@ package com.eightnote.nirvana.models;
 import org.springframework.stereotype.Component;
 
 public class Playlist {
-    private final int id;
-    private final String name;
-    private final String description;
-    private final String type;
-    private final boolean visibility;
-    private final String createdByUser;
-    private final String createdByArtist;
+    private int id;
+    private String name;
+    private String description;
+    private String type;
+    private boolean visibility;
+    private String createdByUser;
+    private String createdByArtist;
 
 
     public Playlist(int id, String name, String description, String type, boolean visibility, String createdByUser, String createdByArtist) {

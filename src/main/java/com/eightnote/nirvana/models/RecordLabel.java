@@ -4,21 +4,21 @@ import java.net.URL;
 import java.sql.Date;
 
 public class RecordLabel {
-    private final int id;
-    private final String username;
-    private final String email;
-    private final String password;
-    private  final boolean is_active;
-    private final Date created_at;
-    private final Date updated_at;
+    private int id;
+    private String username;
+    private String email;
+    private String password;
+    private  boolean is_active;
+    private Date created_at;
+    private Date updated_at;
 
-    private final String labelName;
-    private final String description;
-    private final URL logo;
+    private String labelName;
+    private String description;
+    private URL logo;
 
-    private final URL twitter;
-    private final URL facebook;
-    private final URL instagram;
+    private URL twitter;
+    private URL facebook;
+    private URL instagram;
 
     public RecordLabel(int id, String username, String email, String password, boolean is_active, Date created_at, Date updated_at, String labelName, String description, URL logo, URL twitter, URL facebook, URL instagram) {
         this.id = id;
