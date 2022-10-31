@@ -14,6 +14,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
+
 @Component
 @RestController
 @CrossOrigin
@@ -79,8 +81,10 @@ public class NirvanaUserController {
 
 
         final String token = jsonWebTokenHandler.generateToken(user);
-
-        return new ResponseEntity<>(token.toString(), HttpStatus.OK);
+        var response = new HashMap<String, String>();
+        response.put("token", token);
+        response.put("username", jsonWebTokenHandler.getUsernameFromToken(token));
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 }
 
