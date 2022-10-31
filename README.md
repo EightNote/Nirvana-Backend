@@ -4,29 +4,20 @@ R Read / GetMapping
 U Update / PutMapping
 D Delete / DeleteMapping
 
-# --------- `Parth` ------------------
-PlaylistController:
-```
-Make PlaylistController consistent with PlaylistService 
-```
+# ----------- `Parth` ------------
+remove final keyword from all Model classes and create setters
+add @CrossOrigin above all @RequestMapping in Controller classes
 
 # ----------- `Soumik` ------------
 Artist: 12
 
-    CRUD; // Authentication
     getRecordLabel();
     setRecordLabel();
-    getPlaylists();
     getEvents();
 
 # --------- `Amit` --------------
 Album:
-
     getReleaseInfo();
-
-Track:
-
-    like()
 SQL:
 ```
 TrackDAO queries

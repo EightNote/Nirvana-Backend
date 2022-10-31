@@ -9,8 +9,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @Component
 @RestController
+@RequestMapping("/album")
 public class AlbumController {
     @Autowired
     private final AlbumService albumService;
@@ -83,5 +86,12 @@ public class AlbumController {
             @RequestParam("album") String countryName
     ) {
         return new ResponseEntity<>(albumService.isReleasedInCountry(album, countryName), HttpStatus.OK);
+    }
+
+    @GetMapping("/album/artist/{artist}")
+    public  ResponseEntity<List<Album>> albumsByArtist(
+            @PathVariable("artist") String artist
+    ) {
+        return new ResponseEntity<>(albumService.getAlbumsByArtist(artist), HttpStatus.OK);
     }
 }

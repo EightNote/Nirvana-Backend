@@ -59,8 +59,13 @@ public class AlbumDAO {
     public List<String> getLikes(String albumName) {
         String sql =
                 ("SELECT liked_by_id FROM AlbumLikes " +
-                "WHERE Album.id IN (SELECT id FROM ALBUM WHERE album_title = %s);")
-                .formatted(albumName);
+                        "WHERE Album.id IN (SELECT id FROM ALBUM WHERE album_title = %s);")
+                        .formatted(albumName);
         return jdbcTemplate.query(sql, (rs, rowNum) -> rs.getString("username"));
+    }
+
+    public List<Album> getAlbumsByArtist(String artist) {
+        String sql = "SELECT * FROM Album WHERE artist_id='%s';".formatted(artist);
+        return jdbcTemplate.query(sql, AlbumRowMapper.albumRowMapper);
     }
 }

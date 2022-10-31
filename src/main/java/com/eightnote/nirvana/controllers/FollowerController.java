@@ -80,11 +80,18 @@ public class FollowerController {
 
     @GetMapping("followers/{user}")
     public ResponseEntity followers(
-        @PathVariable("user") String username
+            @PathVariable("user") String username
     ) {
         if (userDetailsManager.loadUserByUsername(username) == null) {
             return new ResponseEntity<>(username + " does not exist", HttpStatus.BAD_REQUEST);
         }
         return new ResponseEntity<>(followerService.getFollowers(username), HttpStatus.OK);
+    }
+
+    @GetMapping("followers/{artist}/is_followed_by/{user}")
+    public ResponseEntity<Boolean> isFollowedBy(
+            @PathVariable("artist") String artist, @PathVariable("user") String username
+    ) {
+        return new ResponseEntity<>(followerService.isFollowedBy(artist, username), HttpStatus.OK);
     }
 }
