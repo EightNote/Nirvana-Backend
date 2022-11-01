@@ -1,6 +1,8 @@
 package com.eightnote.nirvana.controllers;
 
 
+import com.eightnote.nirvana.models.Track;
+import com.eightnote.nirvana.services.NirvanaUserService;
 import com.eightnote.nirvana.services.TrackService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,11 +19,15 @@ import org.springframework.web.bind.annotation.*;
 public class TrackController {
     @Autowired
     private final TrackService trackService;
+    @Autowired
+    private final NirvanaUserService nirvanaUserService;
 
-    public TrackController(TrackService trackService) {this.trackService = trackService;}
+    public TrackController(TrackService trackService, NirvanaUserService nirvanaUserService) {this.trackService = trackService;
+        this.nirvanaUserService = nirvanaUserService;
+    }
 
     @GetMapping("/{track}")
-    public ResponseEntity track(
+    public ResponseEntity<?> track(
             @PathVariable("track") String track
     ){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -32,12 +38,17 @@ public class TrackController {
 
     @PostMapping("/toggle-like/")
     public void likes(@RequestParam("playlist") String trackName) {
-        String likedByUsername = ""; // TODO: Get Username
-        trackService.toggleLike(likedByUsername, trackName);
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        trackService.toggleLike(authentication.getName(), trackName);
+    }
+
+    @PostMapping("/")
+    public void createTrack(@RequestBody Track track) {
+        trackService.createTrack(track);
     }
 
     @GetMapping("/get-album/{track}")
-    public ResponseEntity getAlbum(
+    public ResponseEntity<?> getAlbum(
             @PathVariable("track") String track
     ){
         trackService.getAlbum(track);
@@ -45,7 +56,7 @@ public class TrackController {
     }
 
     @GetMapping("/get-artist/{track}")
-    public ResponseEntity getArtist(
+    public ResponseEntity<?> getArtist(
             @PathVariable("track") String track
     ){
         trackService.getArtist(track);
@@ -53,7 +64,7 @@ public class TrackController {
     }
 
     @GetMapping("/get-likes/{track}")
-    public ResponseEntity getLikes(
+    public ResponseEntity<?> getLikes(
             @PathVariable("track") String track
     ){
         trackService.getLikes(track);
@@ -61,7 +72,7 @@ public class TrackController {
     }
 
     @GetMapping("/is-liked-by/")
-    public ResponseEntity isLikedBy(
+    public ResponseEntity<?> isLikedBy(
             @RequestParam("track") String track,
             @RequestParam("username") String username
     ){

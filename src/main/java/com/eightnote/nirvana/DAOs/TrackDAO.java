@@ -24,13 +24,19 @@ public class TrackDAO {
         return jdbcTemplate.queryForObject(sql, TrackRowMapper.trackRowMapper);
     }
 
-    public void createTrack(String trackName){
-        String sql="";
-        jdbcTemplate.update(sql,trackName);
+    public void createTrack(Track track){
+        String sql=("INSERT INTO Track(title, audio_file, track_length, explicit_content, writer, composer, producer, lyrics, album_id) " +
+                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);");
+        jdbcTemplate.update(sql,
+                track.getTitle(), track.getAudio_file(),
+                track.getTrack_length(), track.getExplicit_content(),
+                track.getWriter(), track.getComposer(), track.getProducer(),
+                track.getProducer(), track.getLyrics()
+        );
     }
 
-    public Album getAlbum(String track) {
-        String sql = "";
+    public Album getAlbum(String trackName) {
+        String sql = "SELECT * FROM Track ";
         return jdbcTemplate.queryForObject(sql, AlbumRowMapper.albumRowMapper);
     }
 
@@ -42,10 +48,10 @@ public class TrackDAO {
     public void toggleLike(String likedByUsername, String trackName, boolean unlike) {
         String sql = unlike ? ("DELETE FROM TrackLikes " +
                 "WHERE " +
-                "track_id IN (SELECT id FROM Track WHERE title = %s)) " +
+                "track_id IN (SELECT id FROM Track WHERE title = '%s')) " +
                 "AND liked_by_id = %s").formatted(trackName, likedByUsername) :
 
-                "INSERT INTO TrackLikes(((SELECT id FROM Track WHERE title = %s)), like_by_id) " +
+                "INSERT INTO TrackLikes(((SELECT id FROM Track WHERE title = '%s')), like_by_id) " +
                         "VALUES (%s, %s);".formatted(trackName, likedByUsername);
         jdbcTemplate.update(sql);
     }
