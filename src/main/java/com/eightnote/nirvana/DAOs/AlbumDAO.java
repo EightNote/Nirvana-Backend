@@ -68,4 +68,9 @@ public class AlbumDAO {
         String sql = "SELECT * FROM Album WHERE artist_id='%s';".formatted(artist);
         return jdbcTemplate.query(sql, AlbumRowMapper.albumRowMapper);
     }
+
+    public List<Album> getAllAlbums() {
+        String sql = "SELECT * FROM Album;";
+        return jdbcTemplate.query(sql, AlbumRowMapper.albumRowMapper);
+    }
 }
