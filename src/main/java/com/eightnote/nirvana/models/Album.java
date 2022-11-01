@@ -2,20 +2,19 @@ package com.eightnote.nirvana.models;
 
 public class Album {
     private int id;
-    private String artistId;
-    private int likeCount;
+    private String album_logo;
+    private String album_title;
+    private int genre_id;
+    private int artist_id;
 
-    private String albumLogoUrl;
-    private String albumTitle;
-    private String genre;
 
-    public Album(int id, String artistId, int likeCount, String albumLogoUrl, String albumTitle, String genre) {
+
+    public Album(int id, int artistId, String albumLogoUrl, String albumTitle, int genre) {
         this.id = id;
-        this.artistId = artistId;
-        this.likeCount = likeCount;
-        this.albumLogoUrl = albumLogoUrl;
-        this.albumTitle = albumTitle;
-        this.genre = genre;
+        this.artist_id = artistId;
+        this.album_logo = albumLogoUrl;
+        this.album_title = albumTitle;
+        this.genre_id = genre;
     }
 
 
@@ -23,47 +22,41 @@ public class Album {
         return id;
     }
 
-    public String getArtistId() {
-        return artistId;
+    public int getArtistId() {
+        return artist_id;
     }
 
-    public String getGenreId() {
-        return genre;
+    public int getGenreId() {
+        return genre_id;
     }
 
     public String getAlbumTitle() {
-        return albumTitle;
+        return album_title;
     }
 
-    public String getGenre() {
-        return genre;
+    public int getGenre() {
+        return genre_id;
     }
 
-    public int getLikes() {
-        return this.likeCount;
-    }
 
     public void setId(int id) {
         this.id = id;
     }
 
-    public void setArtistId(String artistId) {
-        this.artistId = artistId;
+    public void setArtistId(int artistId) {
+        this.artist_id = artistId;
     }
 
-    public void setLikeCount(int likeCount) {
-        this.likeCount = likeCount;
-    }
 
     public void setAlbumLogoUrl(String albumLogoUrl) {
-        this.albumLogoUrl = albumLogoUrl;
+        this.album_logo = albumLogoUrl;
     }
 
     public void setAlbumTitle(String albumTitle) {
-        this.albumTitle = albumTitle;
+        this.album_title = albumTitle;
     }
 
-    public void setGenre(String genre) {
-        this.genre = genre;
+    public void setGenre(int genre) {
+        this.genre_id = genre;
     }
 }

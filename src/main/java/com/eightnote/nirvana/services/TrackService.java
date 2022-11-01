@@ -28,7 +28,7 @@ public class TrackService {
 
     public List<Track> getAllTrack(){return trackDao.getAllTrack();}
 
-    public String getArtist(String track) {
+    public int getArtist(String track) {
         return  trackDao.getAlbum(track).getArtistId();
     }
 

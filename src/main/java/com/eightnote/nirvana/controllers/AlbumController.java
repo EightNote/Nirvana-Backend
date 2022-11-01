@@ -73,13 +73,13 @@ public class AlbumController {
         return new ResponseEntity<>(albumService.isLikedBy(username, album), HttpStatus.OK);
     }
 
-    @PostMapping("/toggle-like/")
-    public void toggleLike(
-            @RequestParam("username") String username,
-            @RequestParam("username") String albumName
-    ) {
-        albumService.toggleLike(username, albumName);
-    }
+//    @PostMapping("/toggle-like/")
+//    public void toggleLike(
+//            @RequestParam("username") String username,
+//            @RequestParam("username") String albumName
+//    ) {
+//        albumService.toggleLike(username, albumName);
+//    }
 
     @GetMapping("/album/is-released-in-country/{album}")
     public ResponseEntity isReleasedInCountry(

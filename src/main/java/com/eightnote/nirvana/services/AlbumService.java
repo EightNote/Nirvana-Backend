@@ -18,10 +18,10 @@ public class AlbumService {
         this.albumDAO = albumDAO;
     }
 
-    public int toggleLike(String username, String albumName) {
-        albumDAO.toggleLike(username , albumName, isLikedBy(username, albumName));
-        return albumDAO.getAlbum(albumName).getLikes();
-    }
+//    public int toggleLike(String username, String albumName) {
+//        albumDAO.toggleLike(username , albumName, isLikedBy(username, albumName));
+//        return albumDAO.getAlbum(albumName).getLikes();
+//    }
     public Album getAlbum(String albumName) {
         return albumDAO.getAlbum(albumName);
     }
