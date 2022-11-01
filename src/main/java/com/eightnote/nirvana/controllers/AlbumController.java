@@ -14,7 +14,7 @@ import java.util.List;
 @Component
 @RestController
 @CrossOrigin
-@RequestMapping("/album")
+@RequestMapping("/albums")
 public class AlbumController {
     @Autowired
     private final AlbumService albumService;
@@ -26,9 +26,9 @@ public class AlbumController {
         this.genreService = genreService;
     }
 
-    @GetMapping("/")
-    public ResponseEntity getAlbum(@RequestParam("albumName") String albumName){
-        return  new ResponseEntity<>(albumService.getAlbum(albumName), HttpStatus.OK);
+    @GetMapping("all/")
+    public ResponseEntity<?> getAllAlbum(){
+        return  new ResponseEntity<>(albumService.getAllAlbum(), HttpStatus.OK);
     }
 
     @PostMapping("/")
