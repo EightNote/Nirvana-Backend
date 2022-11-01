@@ -28,4 +28,6 @@ public class NirvanaUserService implements UserDetailsService {
     public NirvanaUser loadUserByUsername(String username) throws UsernameNotFoundException {
         return nirvanaUserDAO.getUser(username);
     }
+
+    public void getArtistDetail(NirvanaUser user) { nirvanaUserDAO.getArtistDetail(user); }
 }

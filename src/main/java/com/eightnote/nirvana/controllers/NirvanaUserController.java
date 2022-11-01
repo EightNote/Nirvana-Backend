@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.*;
@@ -48,6 +49,17 @@ public class NirvanaUserController {
     public ResponseEntity<?> removeUser(@RequestBody NirvanaUser user) {
         nirvanaUserService.removeUser(user);
         return new ResponseEntity<>("Removed user %s".formatted(user.getUsername()), HttpStatus.OK);
+    }
+
+    @GetMapping("get-artist-detail/{username}")
+    public ResponseEntity<?> getArtistDetail(@PathVariable("username") String userName) {
+        var auth = SecurityContextHolder.getContext().getAuthentication();
+        var user = nirvanaUserService.loadUserByUsername(userName);
+        if (user == null) {
+            return new ResponseEntity<>("User %s does not exist".formatted(userName), HttpStatus.BAD_REQUEST);
+        }
+        nirvanaUserService.getArtistDetail(user);
+        return new ResponseEntity<>("Details of Artist %s".formatted(userName), HttpStatus.OK);
     }
 
     @PostMapping("sign-in/")

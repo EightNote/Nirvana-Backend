@@ -1,6 +1,7 @@
 package com.eightnote.nirvana.DAOs;
 
 import com.eightnote.nirvana.models.NirvanaUser;
+import com.eightnote.nirvana.row_mappers.ArtistDetailsRowMapper;
 import com.eightnote.nirvana.row_mappers.NirvanaUserRowMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -32,5 +33,10 @@ public class NirvanaUserDAO {
     public void removeUser(NirvanaUser user) {
         String sql = "DELETE FROM NirvanaUsers WHERE username = '%s'".formatted(user.getUsername());
         jdbcTemplate.update(sql);
+    }
+
+    public void getArtistDetail(NirvanaUser user) {
+        String sql = "";
+        jdbcTemplate.queryForObject(sql, ArtistDetailsRowMapper.artistDetailsRowMapper);
     }
 }
