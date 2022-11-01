@@ -1,25 +1,25 @@
 package com.eightnote.nirvana.models;
 
 public class Track {
-    private final int id;
+    private int id;
 
-    private final String title;
+    private String title;
 
-    private final String audio_file;
+    private String audio_file;
 
-    private final int track_length;
+    private int track_length;
 
-    private final Boolean explicit_content;
+    private Boolean explicit_content;
 
-    private final String writer;
+    private String writer;
 
-    private final String composer;
+    private String composer;
 
-    private final String producer;
+    private String producer;
 
-    private final String lyrics;
+    private String lyrics;
 
-    private final int album_id;
+    private int album_id;
 
 
     public Track(int id, String title, String audio_file, int track_length, Boolean explicit_content, String writer, String composer, String producer, String lyrics, int album_id) {
@@ -73,5 +73,45 @@ public class Track {
 
     public int getAlbum_id() {
         return album_id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public void setAudio_file(String audio_file) {
+        this.audio_file = audio_file;
+    }
+
+    public void setTrack_length(int track_length) {
+        this.track_length = track_length;
+    }
+
+    public void setExplicit_content(Boolean explicit_content) {
+        this.explicit_content = explicit_content;
+    }
+
+    public void setWriter(String writer) {
+        this.writer = writer;
+    }
+
+    public void setComposer(String composer) {
+        this.composer = composer;
+    }
+
+    public void setProducer(String producer) {
+        this.producer = producer;
+    }
+
+    public void setLyrics(String lyrics) {
+        this.lyrics = lyrics;
+    }
+
+    public void setAlbum_id(int album_id) {
+        this.album_id = album_id;
     }
 }

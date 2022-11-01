@@ -1,13 +1,13 @@
 package com.eightnote.nirvana.models;
 
 public class Album {
-    private final int id;
-    private final String artistId;
-    private final int likeCount;
+    private int id;
+    private String artistId;
+    private int likeCount;
 
-    private final String albumLogoUrl;
-    private final String albumTitle;
-    private final String genre;
+    private String albumLogoUrl;
+    private String albumTitle;
+    private String genre;
 
     public Album(int id, String artistId, int likeCount, String albumLogoUrl, String albumTitle, String genre) {
         this.id = id;
@@ -41,5 +41,29 @@ public class Album {
 
     public int getLikes() {
         return this.likeCount;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setArtistId(String artistId) {
+        this.artistId = artistId;
+    }
+
+    public void setLikeCount(int likeCount) {
+        this.likeCount = likeCount;
+    }
+
+    public void setAlbumLogoUrl(String albumLogoUrl) {
+        this.albumLogoUrl = albumLogoUrl;
+    }
+
+    public void setAlbumTitle(String albumTitle) {
+        this.albumTitle = albumTitle;
+    }
+
+    public void setGenre(String genre) {
+        this.genre = genre;
     }
 }

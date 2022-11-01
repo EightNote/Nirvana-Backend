@@ -4,14 +4,14 @@ import java.sql.Date;
 import java.sql.Time;
 
 public class Event {
-    private final int id;
-    private  final Date date;
-    private final Time time;
-    private final String venue;
-    private final String registrationLink;
-    private final String eventPoster;
-    private final String artistID;
-    private final int countryID;
+    private int id;
+    private Date date;
+    private Time time;
+    private String venue;
+    private String registrationLink;
+    private String eventPoster;
+    private String artistID;
+    private int countryID;
 
     public Event(int id, Date date, Time time, String venue, String registration, String eventPoster, String artistID, int countryID) {
         this.id = id;
@@ -54,5 +54,37 @@ public class Event {
 
     public int getCountryID() {
         return countryID;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
+    public void setTime(Time time) {
+        this.time = time;
+    }
+
+    public void setVenue(String venue) {
+        this.venue = venue;
+    }
+
+    public void setRegistrationLink(String registrationLink) {
+        this.registrationLink = registrationLink;
+    }
+
+    public void setEventPoster(String eventPoster) {
+        this.eventPoster = eventPoster;
+    }
+
+    public void setArtistID(String artistID) {
+        this.artistID = artistID;
+    }
+
+    public void setCountryID(int countryID) {
+        this.countryID = countryID;
     }
 }

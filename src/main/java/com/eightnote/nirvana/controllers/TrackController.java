@@ -5,21 +5,28 @@ import com.eightnote.nirvana.services.TrackService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.*;
 
 @Component
 @RestController
+@CrossOrigin
+@RequestMapping("tracks/")
 public class TrackController {
     @Autowired
     private final TrackService trackService;
 
     public TrackController(TrackService trackService) {this.trackService = trackService;}
 
-    @GetMapping("/track/{track}")
+    @GetMapping("/{track}")
     public ResponseEntity track(
             @PathVariable("track") String track
     ){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        System.out.println(authentication.getName());
         return new ResponseEntity<>(trackService.getTrack(track), HttpStatus.OK);
     }
 
@@ -29,7 +36,7 @@ public class TrackController {
         trackService.toggleLike(likedByUsername, trackName);
     }
 
-    @GetMapping("/track/get-album/{track}")
+    @GetMapping("/get-album/{track}")
     public ResponseEntity getAlbum(
             @PathVariable("track") String track
     ){
@@ -37,7 +44,7 @@ public class TrackController {
         return new ResponseEntity<>(trackService.getAlbum(track), HttpStatus.OK);
     }
 
-    @GetMapping("/track/get-artist/{track}")
+    @GetMapping("/get-artist/{track}")
     public ResponseEntity getArtist(
             @PathVariable("track") String track
     ){
@@ -45,7 +52,7 @@ public class TrackController {
         return new ResponseEntity<>(trackService.getArtist(track), HttpStatus.OK);
     }
 
-    @GetMapping("/track/get-likes/{track}")
+    @GetMapping("/get-likes/{track}")
     public ResponseEntity getLikes(
             @PathVariable("track") String track
     ){
@@ -53,7 +60,7 @@ public class TrackController {
         return new ResponseEntity<>(trackService.getLikes(track), HttpStatus.OK);
     }
 
-    @GetMapping("/track/is-liked-by/")
+    @GetMapping("/is-liked-by/")
     public ResponseEntity isLikedBy(
             @RequestParam("track") String track,
             @RequestParam("username") String username

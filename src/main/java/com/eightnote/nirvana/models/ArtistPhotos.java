@@ -5,8 +5,8 @@ import org.springframework.stereotype.Component;
 import java.util.Date;
 
 public class ArtistPhotos {
-    private final Date date;
-    private final String url;
+    private Date date;
+    private String url;
 
     public ArtistPhotos(String url, Date date) {
         this.date = date;
@@ -15,5 +15,13 @@ public class ArtistPhotos {
 
     public String getUrl() {
         return url;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
     }
 }

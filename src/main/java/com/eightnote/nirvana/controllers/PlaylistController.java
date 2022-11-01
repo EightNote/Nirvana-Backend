@@ -14,6 +14,7 @@ import java.util.List;
 
 @RestController
 @Component
+@CrossOrigin
 @RequestMapping("/playlist")
 public class PlaylistController {
     final private GrantedAuthority artistAuthority = () -> "ARTIST";
@@ -119,7 +120,7 @@ public class PlaylistController {
         return new ResponseEntity<>(likes.size(), HttpStatus.OK);
     }
 
-    @PostMapping("/like/")
+    @PostMapping("/toggle-like/")
     public void likes(@RequestParam("user") String ownerUsername, @RequestParam("playlist") String playlistName) {
         String likedByUsername = ""; // TODO: Get Username
         playlistService.toggleLike(ownerUsername, likedByUsername, playlistName);
