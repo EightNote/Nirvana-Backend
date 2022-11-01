@@ -6,6 +6,16 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.util.Collection;
 
 public class NirvanaUser implements UserDetails {
+    private String role;
+
+    public String getRole() {
+        return role;
+    }
+
+    public String setRole(String role) {
+        return  this.role = role;
+    }
+
     private String username;
 
     public void setUsername(String username) {
@@ -55,8 +65,9 @@ public class NirvanaUser implements UserDetails {
 
     private  String password;
 
-    public NirvanaUser(String username, String password) {
+    public NirvanaUser(String username, String password, String role) {
         this.username = username;
         this.password = password;
+        this.role = role;
     }
 }

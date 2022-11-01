@@ -38,25 +38,11 @@ public class NirvanaUserController {
 
     @PostMapping("sign-up/")
     public ResponseEntity<?> createUser(@RequestBody NirvanaUser user) {
-//        System.out.println("Creating user");
-//        System.out.println(user.getUsername());
-//        System.out.println(user.getPassword());
-        var encryptedUser = new NirvanaUser(user.getUsername(), bCryptPasswordEncoder.encode(user.getPassword()));
+        var encryptedUser = new NirvanaUser(user.getUsername(), bCryptPasswordEncoder.encode(user.getPassword()), user.getRole());
         nirvanaUserService.createUser(encryptedUser);
 
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
-
-//    @GetMapping("sign-up/")
-//    public ResponseEntity<?> createUserGET() {
-//        System.out.println("Creating user via GET");
-////        System.out.println(user.getUsername());
-////        System.out.println(user.getPassword());
-////        nirvanaUserService.createUser(user);
-////        return "Create User GET";
-//        return new ResponseEntity<>("Created", HttpStatus.OK);
-//    }
-
 
     @PostMapping("remove-user/")
     public ResponseEntity<?> removeUser(@RequestBody NirvanaUser user) {
@@ -82,8 +68,12 @@ public class NirvanaUserController {
 
         final String token = jsonWebTokenHandler.generateToken(user);
         var response = new HashMap<String, String>();
+
+        user = nirvanaUserService.loadUserByUsername(user.getUsername());
+
         response.put("token", token);
         response.put("username", jsonWebTokenHandler.getUsernameFromToken(token));
+        response.put("role", user.getRole());
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 }
