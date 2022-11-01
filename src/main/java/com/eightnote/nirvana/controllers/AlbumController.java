@@ -27,12 +27,12 @@ public class AlbumController {
     }
 
     @GetMapping("/")
-    public ResponseEntity getAlbum(@RequestParam("albumName") String albumName){
-        return  new ResponseEntity<>(albumService.getAlbum(albumName), HttpStatus.OK);
+    public ResponseEntity<?> getAllAlbum(){
+        return  new ResponseEntity<>(albumService.getAllAlbum(), HttpStatus.OK);
     }
 
     @PostMapping("/")
-    public ResponseEntity createAlbum(
+    public ResponseEntity<?> createAlbum(
             @RequestParam("title") String albumName,
             @RequestParam("logo") String albumLogo,
             @RequestParam("artistId") String artistId,
@@ -45,28 +45,28 @@ public class AlbumController {
     }
 
     @GetMapping("/album/{album}")
-    public ResponseEntity album(
+    public ResponseEntity<?> album(
             @PathVariable("album") String album
     ) {
         return new ResponseEntity<>(albumService.getAlbum(album), HttpStatus.OK);
     }
 
     @GetMapping("/album/get-like-count/{album}")
-    public ResponseEntity getLikeCount(
+    public ResponseEntity<?> getLikeCount(
             @PathVariable("album") String album
     ) {
         return new ResponseEntity<>(albumService.getLikeCount(album), HttpStatus.OK);
     }
 
     @GetMapping("/album/get-likes/{album}")
-    public ResponseEntity getLikes(
+    public ResponseEntity<?> getLikes(
             @PathVariable("album") String album
     ) {
         return new ResponseEntity<>(albumService.getLikes(album), HttpStatus.OK);
     }
 
     @GetMapping("/album/is-liked-by/{album}")
-    public ResponseEntity isLikedBy(
+    public ResponseEntity<?> isLikedBy(
             @PathVariable("album") String album,
             @RequestParam("username") String username
     ) {
@@ -82,7 +82,7 @@ public class AlbumController {
     }
 
     @GetMapping("/album/is-released-in-country/{album}")
-    public ResponseEntity isReleasedInCountry(
+    public ResponseEntity<?> isReleasedInCountry(
             @PathVariable("album") String album,
             @RequestParam("album") String countryName
     ) {
@@ -90,7 +90,7 @@ public class AlbumController {
     }
 
     @GetMapping("/album/artist/{artist}")
-    public  ResponseEntity<List<Album>> albumsByArtist(
+    public  ResponseEntity<?> albumsByArtist(
             @PathVariable("artist") String artist
     ) {
         return new ResponseEntity<>(albumService.getAlbumsByArtist(artist), HttpStatus.OK);
