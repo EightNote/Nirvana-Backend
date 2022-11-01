@@ -22,12 +22,17 @@ public class TrackController {
 
     @GetMapping("/{track}")
     public ResponseEntity track(
-            @PathVariable("track") String track
+            @PathVariable(name = "track", required = false) String track
     ){
+        System.out.println(track);
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
-        System.out.println(authentication.getName());
-        return new ResponseEntity<>(trackService.getTrack(track), HttpStatus.OK);
+        if(track.equals("all")){
+            return new ResponseEntity<>(trackService.getAllTrack(), HttpStatus.OK);
+        }else{
+            return new ResponseEntity<>(trackService.getTrack(track), HttpStatus.OK);
+        }
+
     }
 
     @PostMapping("/toggle-like/")
@@ -53,7 +58,7 @@ public class TrackController {
     }
 
     @GetMapping("/get-likes/{track}")
-    public ResponseEntity getLikes(
+    public ResponseEntity<?> getLikes(
             @PathVariable("track") String track
     ){
         trackService.getLikes(track);
