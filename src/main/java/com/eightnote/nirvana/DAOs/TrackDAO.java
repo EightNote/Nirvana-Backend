@@ -24,7 +24,6 @@ public class TrackDAO {
         return jdbcTemplate.queryForObject(sql, TrackRowMapper.trackRowMapper);
     }
 
-<<<<<<< HEAD
     public  List<Track> getAllTrack() {
         String sql="SELECT * FROM Track";
         return jdbcTemplate.query(sql,
@@ -44,10 +43,7 @@ public class TrackDAO {
                 );
     }
 
-    public void createTrack(String trackName){
-        String sql="";
-        jdbcTemplate.update(sql,trackName);
-=======
+
     public void createTrack(Track track){
         String sql=("INSERT INTO Track(title, audio_file, track_length, explicit_content, writer, composer, producer, lyrics, album_id) " +
                 "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);");
@@ -57,7 +53,6 @@ public class TrackDAO {
                 track.getWriter(), track.getComposer(), track.getProducer(),
                 track.getProducer(), track.getLyrics()
         );
->>>>>>> 91b7c70b50929250c64e02ced96c3cc9b15f9127
     }
 
     public Album getAlbum(String trackName) {
