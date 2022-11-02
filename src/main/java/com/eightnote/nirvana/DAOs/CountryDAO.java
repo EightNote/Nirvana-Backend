@@ -1,6 +1,7 @@
 package com.eightnote.nirvana.DAOs;
 
 import com.eightnote.nirvana.models.Country;
+import com.eightnote.nirvana.models.Track;
 import com.eightnote.nirvana.row_mappers.CountryRowMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
@@ -26,6 +27,11 @@ public class CountryDAO {
     public List<Country> getAllCountries() {
         String sql = "SELECT * FROM Country;";
         return jdbcTemplate.query(sql, CountryRowMapper.countryRowMapper);
+    }
+
+    public Country getId(int id){
+        String sql="SELECT * FROM Country WHERE Country.id='%s'".formatted(id);
+        return jdbcTemplate.queryForObject(sql,(rs, rowNum)->new Country(rs.getInt("id"), rs.getString("name")));
     }
 
 }

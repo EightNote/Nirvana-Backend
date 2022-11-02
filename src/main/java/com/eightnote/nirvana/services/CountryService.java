@@ -25,6 +25,7 @@ public class CountryService {
     public List<Country> getAll() {
         return countryDAO.getAllCountries();
     }
+    public Country getId(int id) {return countryDAO.getId(id);}
 }
 
 
