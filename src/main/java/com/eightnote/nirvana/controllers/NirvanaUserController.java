@@ -2,6 +2,7 @@ package com.eightnote.nirvana.controllers;
 
 import com.eightnote.nirvana.login.JSONWebTokenHandler;
 import com.eightnote.nirvana.login.NirvanaAuthenticationManager;
+import com.eightnote.nirvana.models.ArtistAccountDetails;
 import com.eightnote.nirvana.models.NirvanaUser;
 import com.eightnote.nirvana.services.NirvanaUserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,8 +40,19 @@ public class NirvanaUserController {
 
     @PostMapping("sign-up/")
     public ResponseEntity<?> createUser(@RequestBody NirvanaUser user) {
-        var encryptedUser = new NirvanaUser(user.getUsername(), bCryptPasswordEncoder.encode(user.getPassword()), user.getRole());
+        var encryptedUser = new NirvanaUser(user.getUsername(), bCryptPasswordEncoder.encode(user.getPassword()), "user");
         nirvanaUserService.createUser(encryptedUser);
+
+        return new ResponseEntity<>(user, HttpStatus.OK);
+    }
+
+    @PostMapping("sign-up/artist/")
+    public ResponseEntity<?> createArtistAccount(@RequestBody ArtistAccountDetails user) {
+        var encryptedUser = user;
+        String passwordDecoded = user.getPassword();
+        encryptedUser.setPassword(bCryptPasswordEncoder.encode(passwordDecoded));
+
+        nirvanaUserService.createArtistAccount(encryptedUser);
 
         return new ResponseEntity<>(user, HttpStatus.OK);
     }

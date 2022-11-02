@@ -1,5 +1,6 @@
 package com.eightnote.nirvana.DAOs;
 
+import com.eightnote.nirvana.models.ArtistAccountDetails;
 import com.eightnote.nirvana.models.NirvanaUser;
 import com.eightnote.nirvana.row_mappers.ArtistDetailsRowMapper;
 import com.eightnote.nirvana.row_mappers.NirvanaUserRowMapper;
@@ -19,6 +20,8 @@ public class NirvanaUserDAO {
 
     public void createUser(NirvanaUser user) {
         String sql = "INSERT INTO NirvanaUsers VALUES ('%s', '%s', true)".formatted( user.getUsername(), user.getPassword());
+        String sqlArtistDetails = "INSERT INTO Artist VALUES (%s)";
+
 
         String sql_role = "INSERT INTO Authorities VALUES ('%s', '%s')".formatted(user.getUsername(), user.getRole());
         jdbcTemplate.update(sql);
@@ -38,5 +41,19 @@ public class NirvanaUserDAO {
     public void getArtistDetail(NirvanaUser user) {
         String sql = "";
         jdbcTemplate.queryForObject(sql, ArtistDetailsRowMapper.artistDetailsRowMapper);
+    }
+
+    public void createArtistAccount(ArtistAccountDetails ac) {
+        String sql = "INSERT INTO NirvanaUsers VALUES ('%s', '%s', true)".formatted( ac.getUsername(), ac.getPassword());
+        String sqlArtistDetails = "INSERT INTO Artist VALUES ('%s', '%s', '%s', '%s', '%s', %d, %d)".formatted(
+                ac.getUsername(),
+                ac.getAbout(),
+                ac.getTwitter(),
+                ac.getInstagram(),
+                ac.getNationality_id(),
+                ac.getRecord_label_id()
+        );
+
+        jdbcTemplate.update(sql);
     }
 }

@@ -1,6 +1,7 @@
 package com.eightnote.nirvana.services;
 
 import com.eightnote.nirvana.DAOs.NirvanaUserDAO;
+import com.eightnote.nirvana.models.ArtistAccountDetails;
 import com.eightnote.nirvana.models.NirvanaUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -30,4 +31,8 @@ public class NirvanaUserService implements UserDetailsService {
     }
 
     public void getArtistDetail(NirvanaUser user) { nirvanaUserDAO.getArtistDetail(user); }
+
+    public void createArtistAccount(ArtistAccountDetails encryptedUser) {
+        nirvanaUserDAO.createArtistAccount(encryptedUser);
+    }
 }
