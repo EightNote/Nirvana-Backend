@@ -56,6 +56,7 @@ public class TrackController {
     public ResponseEntity<?> getAlbum(
             @PathVariable("track") String track
     ){
+        
         trackService.getAlbum(track);
         return new ResponseEntity<>(trackService.getAlbum(track), HttpStatus.OK);
     }
