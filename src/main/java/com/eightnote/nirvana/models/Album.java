@@ -22,41 +22,22 @@ public class Album {
         return id;
     }
 
-    public int getArtistId() {
+    public String getAlbum_title() {
+        return album_title;
+    }
+    public int getArtist_id() {
         return artist_id;
     }
 
-    public int getGenreId() {
+    public int getGenre_id() {
         return genre_id;
     }
-
-    public String getAlbumTitle() {
-        return album_title;
-    }
-
-    public int getGenre() {
-        return genre_id;
+    public String getAlbum_logo() {
+        return album_logo;
     }
 
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    public void setArtistId(int artistId) {
-        this.artist_id = artistId;
-    }
-
-
-    public void setAlbumLogoUrl(String albumLogoUrl) {
-        this.album_logo = albumLogoUrl;
-    }
-
-    public void setAlbumTitle(String albumTitle) {
-        this.album_title = albumTitle;
-    }
-
-    public void setGenre(int genre) {
-        this.genre_id = genre;
     }
 }

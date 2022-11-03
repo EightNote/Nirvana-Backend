@@ -1,7 +1,6 @@
 package com.eightnote.nirvana.row_mappers;
 
 import com.eightnote.nirvana.models.Playlist;
-import com.eightnote.nirvana.models.PlaylistTrackInfo;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Component;
 
@@ -13,7 +12,7 @@ public class PlaylistRowMapper {
             rs.getString("description"),
             rs.getString("type"),
             rs.getBoolean("visibility"),
-            rs.getString("createdByUser"),
-            rs.getString("createdByArtist")
+            rs.getString("created_by_user_id"),
+            rs.getString("created_by_artist_id")
     );
 }
