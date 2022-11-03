@@ -1,6 +1,7 @@
 package com.eightnote.nirvana.DAOs;
 
 import com.eightnote.nirvana.models.ArtistAccountDetails;
+import com.eightnote.nirvana.models.ArtistDetails;
 import com.eightnote.nirvana.models.NirvanaUser;
 import com.eightnote.nirvana.row_mappers.ArtistDetailsRowMapper;
 import com.eightnote.nirvana.row_mappers.NirvanaUserRowMapper;
@@ -8,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
+
+import java.util.List;
 
 @Component
 public class NirvanaUserDAO {
@@ -55,5 +58,10 @@ public class NirvanaUserDAO {
         );
 
         jdbcTemplate.update(sql);
+    }
+
+    public List<ArtistDetails> getAllArtist(){
+        String sql = "SELECT * FROM ArtistDetails";
+        return jdbcTemplate.query(sql,ArtistDetailsRowMapper.artistDetailsRowMapper);
     }
 }

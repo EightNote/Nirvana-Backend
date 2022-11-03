@@ -30,7 +30,7 @@ public class EventController {
             @RequestParam("date") String date,
             @RequestParam("time") String time,
             @RequestParam("venue") String venue,
-            @RequestParam("reg_url") String registrationLink,
+            @RequestParam(value = "reg_url",required = false) String registrationLink,
             @RequestParam("poster_url") String posterUrl,
             @RequestParam("artist") String artistName,
             @RequestParam("country") String country

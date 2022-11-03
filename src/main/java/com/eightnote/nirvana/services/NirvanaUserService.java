@@ -2,11 +2,14 @@ package com.eightnote.nirvana.services;
 
 import com.eightnote.nirvana.DAOs.NirvanaUserDAO;
 import com.eightnote.nirvana.models.ArtistAccountDetails;
+import com.eightnote.nirvana.models.ArtistDetails;
 import com.eightnote.nirvana.models.NirvanaUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
+
+import java.util.List;
 
 @Component
 public class NirvanaUserService implements UserDetailsService {
@@ -34,5 +37,9 @@ public class NirvanaUserService implements UserDetailsService {
 
     public void createArtistAccount(ArtistAccountDetails encryptedUser) {
         nirvanaUserDAO.createArtistAccount(encryptedUser);
+    }
+
+    public List<ArtistDetails> getAllArtist(){
+        return nirvanaUserDAO.getAllArtist();
     }
 }
