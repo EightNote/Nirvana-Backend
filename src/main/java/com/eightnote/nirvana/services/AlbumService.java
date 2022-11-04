@@ -60,4 +60,8 @@ public class AlbumService {
     public List<Album> getAllAlbum() {
         return albumDAO.getAllAlbums();
     }
+
+    public List<Album> getUserLikes(String username) {
+        return albumDAO.getUserLikes(username);
+    }
 }

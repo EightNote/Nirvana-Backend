@@ -5,9 +5,11 @@ import com.eightnote.nirvana.models.Country;
 import com.eightnote.nirvana.row_mappers.AlbumRowMapper;
 import com.eightnote.nirvana.row_mappers.CountryRowMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Component
@@ -72,5 +74,19 @@ public class AlbumDAO {
     public List<Album> getAllAlbums() {
         String sql = "SELECT * FROM Album;";
         return jdbcTemplate.query(sql, AlbumRowMapper.albumRowMapper);
+    }
+
+    public List<Album> getUserLikes(String username) {
+        String sql = "SELECT * FROM AlbumLikes WHERE liked_by_id = %s".formatted(username);
+        List<Album> likes;
+
+        System.out.printf("Got username %s%n", username);
+        try {
+            likes = jdbcTemplate.query(sql, AlbumRowMapper.albumRowMapper);
+        } catch (DataAccessException e) {
+            return new ArrayList<>();
+        };
+
+        return likes;
     }
 }
