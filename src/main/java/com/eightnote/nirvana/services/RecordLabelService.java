@@ -5,6 +5,8 @@ import com.eightnote.nirvana.models.RecordLabel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 @Component
 public class RecordLabelService {
     @Autowired
@@ -17,5 +19,7 @@ public class RecordLabelService {
     public RecordLabel getRecordLabel(Integer id) {
         return recordLabelDAO.getRecordLabel(id);
     }
+
+    public List<RecordLabel> getAllRecordLabel(){return recordLabelDAO.getAllRecordLabel();}
 
 }

@@ -7,10 +7,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -27,6 +24,11 @@ public class CountryController {
         this.countryService = countryService;
     }
 
+
+    @GetMapping("{id}/")
+    public ResponseEntity getCountry(
+            @PathVariable(name = "id", required = true) int id
+    ){System.out.println("id");return new ResponseEntity(countryService.getId(id), HttpStatus.OK);}
     @GetMapping("all/")
     public ResponseEntity getAllCountries() {
         return new ResponseEntity(countryService.getAll(), HttpStatus.OK);

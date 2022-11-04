@@ -29,7 +29,7 @@ public class FollowerController {
 
 
     @PostMapping("/follow")
-    public ResponseEntity follow(
+    public ResponseEntity<?> follow(
             @RequestParam("user1") String user1,
             @RequestParam("user2") String user2
     ) {

@@ -29,7 +29,7 @@ public class TrackService {
     public List<Track> getAllTrack(){return trackDao.getAllTrack();}
 
     public int getArtist(String track) {
-        return  trackDao.getAlbum(track).getArtistId();
+        return  trackDao.getAlbum(track).getArtist_id();
     }
 
     public List<String> getLikes(String track) {

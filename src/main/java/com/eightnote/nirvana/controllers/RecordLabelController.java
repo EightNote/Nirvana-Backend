@@ -18,7 +18,12 @@ public class RecordLabelController {
     public RecordLabelController(RecordLabelService recordLabelService) {this.recordLabelService = recordLabelService;}
 
     @GetMapping("/id/{id}")
-    public ResponseEntity getRecordLabel(@RequestParam("id") Integer recordLabelId) {
-        return new ResponseEntity<>(recordLabelService.getRecordLabel(recordLabelId), HttpStatus.OK);
+    public ResponseEntity<?> getRecordLabel(@RequestParam("id") Integer recordLabelId) {
+        if(recordLabelId==-1){
+            return new ResponseEntity<>(recordLabelService.getAllRecordLabel(),HttpStatus.OK);
+        }else{
+            return new ResponseEntity<>(recordLabelService.getRecordLabel(recordLabelId), HttpStatus.OK);
+        }
+
     }
 }

@@ -73,6 +73,11 @@ public class NirvanaUserController {
         nirvanaUserService.getArtistDetail(user);
         return new ResponseEntity<>("Details of Artist %s".formatted(userName), HttpStatus.OK);
     }
+    @GetMapping("/getAllArtist/")
+    public ResponseEntity<?> getAllArtist(){
+        nirvanaUserService.getAllArtist();
+        return new ResponseEntity<>(nirvanaUserService.getAllArtist(),HttpStatus.OK);
+    }
 
     @PostMapping("sign-in/")
     public ResponseEntity<?> signIn(@RequestBody NirvanaUser user) throws Exception {
