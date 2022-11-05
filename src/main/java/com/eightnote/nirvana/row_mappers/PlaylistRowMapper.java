@@ -11,7 +11,7 @@ public class PlaylistRowMapper {
             rs.getString("name"),
             rs.getString("description"),
             rs.getString("type"),
-            rs.getBoolean("visibility"),
+            rs.getString("visibility"),
             rs.getString("created_by_user_id"),
             rs.getString("created_by_artist_id")
     );

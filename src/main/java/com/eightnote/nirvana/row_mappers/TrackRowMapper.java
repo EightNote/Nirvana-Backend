@@ -7,7 +7,6 @@ import org.springframework.jdbc.core.RowMapper;
 public class TrackRowMapper {
 
     public static RowMapper<Track> trackRowMapper=(rs, rowNum)->new Track(
-            rs.getInt("id"),
             rs.getString("title"),
             rs.getString("audio_file"),
             rs.getInt("track_length"),

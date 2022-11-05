@@ -7,13 +7,12 @@ import org.springframework.stereotype.Component;
 @Component
 public class EventRowMapper {
     public static RowMapper<Event> eventRowMapper = (rs, rowNum) -> new Event(
-            rs.getInt("id"),
-            rs.getDate("date"),
-            rs.getTime("time"),
+            rs.getString("date"),
+            rs.getString("time"),
             rs.getString("venue"),
             rs.getString("registration"),
-            rs.getString("eventPoster"),
-            rs.getString("artistID"),
-            rs.getInt("countryID")
+            rs.getString("event_poster"),
+            rs.getString("artist_id"),
+            rs.getInt("country_id")
     );
 }

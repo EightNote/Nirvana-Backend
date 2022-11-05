@@ -2,6 +2,7 @@ package com.eightnote.nirvana.DAOs;
 
 import com.eightnote.nirvana.models.Event;
 import com.eightnote.nirvana.row_mappers.EventRowMapper;
+import com.fasterxml.jackson.databind.deser.std.DateDeserializers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
@@ -17,9 +18,10 @@ public class EventDAO {
         this.jdbcTemplate = jdbcTemplate;
     }
 
-    public void create(String date, String time, String venue, String registrationLink, String posterUrl, String artistName, String country) {
-        String sql = "";
-        jdbcTemplate.update(sql, date, time, venue, registrationLink, posterUrl, artistName, country);
+    public void create(String date, String time, String venue, String registrationLink, String posterUrl, String artistName, int country) {
+        String sql = "INSERT INTO Event (date,time,venue,registration,event_poster,artist_id,country_id) VALUES ('%s', '%s', '%s', '%s', '%s', '%s', %d)"
+                .formatted(date, time, venue, registrationLink, posterUrl, artistName, country);
+        jdbcTemplate.update(sql);
     }
 
     public Event getEvent(int id) {
@@ -32,27 +34,27 @@ public class EventDAO {
         return jdbcTemplate.query(sql, EventRowMapper.eventRowMapper);
     }
 
-    public void updateEventTime(int id, String time) {
+    public void updateEventTime(String reg, String time) {
         String sql = "UPDATE Event " +
-                "SET time = ? " +
-                "WHERE id = ?;";
+                "SET time = '%s'" +
+                "WHERE registration_link = '%s';";
 
-        jdbcTemplate.update(sql, time, id);
+        jdbcTemplate.update(sql);
     }
 
-    public void updateEventDate(int id, String date) {
+    public void updateEventDate(String reg, String date) {
         String sql = "UPDATE Event " +
-                "SET date = ? " +
-                "WHERE id = ?;";
+                "SET date = '%s' " +
+                "WHERE registration_link = '%s';";
 
-        jdbcTemplate.update(sql, date, id);
+        jdbcTemplate.update(sql);
     }
 
-    public void updateEventVenue(int id, String venue) {
+    public void updateEventVenue(String reg, String venue) {
         String sql = "UPDATE Event " +
-                "SET venue = ? " +
-                "WHERE id = ?;";
+                "SET venue = '%' " +
+                "WHERE registration_link = '%s';";
 
-        jdbcTemplate.update(sql, venue, id);
+        jdbcTemplate.update(sql);
     }
 }

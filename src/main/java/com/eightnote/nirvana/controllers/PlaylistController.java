@@ -1,6 +1,7 @@
 package com.eightnote.nirvana.controllers;
 
 import com.eightnote.nirvana.models.Playlist;
+import com.eightnote.nirvana.services.NirvanaUserService;
 import com.eightnote.nirvana.services.PlaylistService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -15,7 +16,7 @@ import java.util.List;
 @RestController
 @Component
 @CrossOrigin
-@RequestMapping("/playlist")
+@RequestMapping("playlist/")
 public class PlaylistController {
     final private GrantedAuthority artistAuthority = () -> "ARTIST";
     final private GrantedAuthority userAuthority = () -> "USER";
@@ -23,8 +24,12 @@ public class PlaylistController {
     @Autowired
     private final PlaylistService playlistService;
 
-    public PlaylistController(PlaylistService playlistService) {
+    @Autowired
+    private final NirvanaUserService nirvanaUserService;
+
+    public PlaylistController(PlaylistService playlistService, NirvanaUserService nirvanaUserService) {
         this.playlistService = playlistService;
+        this.nirvanaUserService = nirvanaUserService;
     }
 
     @GetMapping("/get-tracks/{playlist}")
@@ -37,26 +42,24 @@ public class PlaylistController {
         return new ResponseEntity<>(playlistService.getPlaylist(ownerUsername, playlistName), HttpStatus.OK);
     }
 
-    @PostMapping("/")
-    public ResponseEntity createPlaylist(
-            @RequestParam("name") String playlistName,
-            @RequestParam("ownerUsername") String ownerUsername,
-            @RequestParam("desc") String description,
-            @RequestParam("type") String type,
-            @RequestParam("vis") String visibility
-            ){
+    @PostMapping("")
+    public ResponseEntity<?> createPlaylist(@RequestBody Playlist playlist){
         var authentication = SecurityContextHolder.getContext().getAuthentication();
         String loggedInUsername = authentication.getName();
 
-        if (authentication.getAuthorities().contains(artistAuthority)) {
-            playlistService.createArtistPlaylist(playlistName, description, type, visibility, loggedInUsername);
+        String role = nirvanaUserService.loadUserByUsername(loggedInUsername).getRole();
+
+        if (role.equals("artist")) {
+            playlistService.createArtistPlaylist(playlist.getName(), playlist.getDescription(), playlist.getType(), playlist.isVisibility(), loggedInUsername);
         }
-        else if (authentication.getAuthorities().contains(userAuthority)) {
-            playlistService.createUserPlaylist(playlistName, description, type, visibility, loggedInUsername);
+        else if (role.equals("user")) {
+            playlistService.createUserPlaylist(playlist.getName(), playlist.getDescription(), playlist.getType(), playlist.isVisibility(), loggedInUsername);
         }
 
-        String username = ""; // TODO: Get Username
-        Playlist playlist = playlistService.getPlaylist(ownerUsername, playlistName);
+//        String owner = playlist.getCreatedByUser();
+//        if (owner == null) owner = playlist.getCreatedByArtist();
+
+        playlist = playlistService.getPlaylist(loggedInUsername, playlist.getName());
         return new ResponseEntity<>(playlist, HttpStatus.OK);
     }
 

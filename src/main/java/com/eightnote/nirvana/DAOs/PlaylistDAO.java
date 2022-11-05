@@ -37,12 +37,13 @@ public class PlaylistDAO {
     }
 
     public void createPlaylist(String name, String desc, String type, String visibility, String created_by_user, String created_by_artist) {
-        created_by_user = created_by_user == null ? "NULL" : created_by_user;
-        created_by_artist = created_by_artist == null ? "NULL" : created_by_artist;
+        created_by_user = created_by_user == null ? "NULL" : "'" + created_by_user + "'";
+        created_by_artist = created_by_artist == null ? "NULL" : "'" + created_by_artist + "'";
 
         String sql = "INSERT INTO Playlist(name, description, type, visibility, created_by_artist_id, created_by_user_id)  " +
-                "VALUES (?, ?, ?, ?, ?, ?);";
-        jdbcTemplate.update(sql, name, desc, type, visibility, created_by_user, created_by_artist);
+                "VALUES ('%s', '%s', '%s', '%s', %s, %s);".formatted(name, desc, type, visibility,  created_by_artist, created_by_user);
+        System.out.println(sql);
+        jdbcTemplate.update(sql);
     }
 
     public void updatePlaylistDescription(int playlistID, String description) {
@@ -69,24 +70,25 @@ public class PlaylistDAO {
         String sql = unlike ? ("DELETE FROM PlaylistLikes " +
                 "WHERE " +
                 "playlist_id = %d " +
-                "AND liked_by_id = %s").formatted(playlistID, username) :
+                "AND liked_by_id = '%s'").formatted(playlistID, username) :
 
                 "INSERT INTO PlaylistLikes(playlist_id, like_by_id) " +
-                        "VALUES (%d, %s);".formatted(playlistID, username);
+                        "VALUES (%d, '%s');".formatted(playlistID, username);
         jdbcTemplate.update(sql);
     }
 
     public int getPlaylistID(String username, String playlistName) {
         String sql = ("SELECT id FROM Playlist " +
-                "WHERE (created_by_artist_id = %s OR created_by_user_id = %s) AND name = %s;")
+                "WHERE (created_by_artist_id = '%s' OR created_by_user_id = '%s') AND name = '%s';")
                 .formatted(username, username, playlistName);
+        System.out.println(sql);
         Integer id = jdbcTemplate.queryForObject(sql, (rs, i) -> rs.getInt("id"));
         if (id == null) return -1;
         return id;
     }
 
     public List<Playlist> getPlaylistByUser(String username) {
-        String sql = "SELECT * FROM Playlist WHERE (created_by_artist_id = %s OR created_by_user_id = %s)".formatted(username, username);
+        String sql = "SELECT * FROM Playlist WHERE (created_by_artist_id = '%s' OR created_by_user_id = '%s')".formatted(username, username);
         return jdbcTemplate.query(sql, PlaylistRowMapper.playListRowMapper);
     }
 }

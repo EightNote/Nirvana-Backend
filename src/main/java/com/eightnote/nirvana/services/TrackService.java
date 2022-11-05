@@ -18,7 +18,7 @@ public class TrackService {
         this.trackDao = trackDao;
     }
 
-    public Track getTrack(String trackName) { return trackDao.getTrack(trackName); }
+    public List<Track> getTrack(String trackName) { return trackDao.getTrack(trackName); }
 
     public void createTrack(Track track){trackDao.createTrack(track);}
 

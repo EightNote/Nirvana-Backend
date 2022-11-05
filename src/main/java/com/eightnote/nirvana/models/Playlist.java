@@ -7,12 +7,12 @@ public class Playlist {
     private String name;
     private String description;
     private String type;
-    private boolean visibility;
+    private String visibility;
     private String createdByUser;
     private String createdByArtist;
 
 
-    public Playlist(int id, String name, String description, String type, boolean visibility, String createdByUser, String createdByArtist) {
+    public Playlist(int id, String name, String description, String type, String visibility, String createdByUser, String createdByArtist) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -38,7 +38,7 @@ public class Playlist {
         return type;
     }
 
-    public boolean isVisibility() {
+    public String isVisibility() {
         return visibility;
     }
 
@@ -66,7 +66,7 @@ public class Playlist {
         this.type = type;
     }
 
-    public void setVisibility(boolean visibility) {
+    public void setVisibility(String visibility) {
         this.visibility = visibility;
     }
 

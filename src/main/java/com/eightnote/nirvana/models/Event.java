@@ -1,20 +1,15 @@
 package com.eightnote.nirvana.models;
 
-import java.sql.Date;
-import java.sql.Time;
-
 public class Event {
-    private int id;
-    private Date date;
-    private Time time;
+    private String date;
+    private String time;
     private String venue;
     private String registrationLink;
     private String eventPoster;
     private String artistID;
     private int countryID;
 
-    public Event(int id, Date date, Time time, String venue, String registration, String eventPoster, String artistID, int countryID) {
-        this.id = id;
+    public Event(String date, String time, String venue, String registration, String eventPoster, String artistID, int countryID) {
         this.date = date;
         this.time = time;
         this.venue = venue;
@@ -24,15 +19,11 @@ public class Event {
         this.countryID = countryID;
     }
 
-    public int getId() {
-        return id;
-    }
-
-    public Date getDate() {
+    public String getDate() {
         return date;
     }
 
-    public Time getTime() {
+    public String getTime() {
         return time;
     }
 
@@ -56,15 +47,11 @@ public class Event {
         return countryID;
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public void setDate(Date date) {
+    public void setDate(String date) {
         this.date = date;
     }
 
-    public void setTime(Time time) {
+    public void setTime(String time) {
         this.time = time;
     }
 

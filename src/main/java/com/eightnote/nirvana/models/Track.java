@@ -22,8 +22,7 @@ public class Track {
     private int album_id;
 
 
-    public Track(int id, String title, String audio_file, int track_length, Boolean explicit_content, String writer, String composer, String producer, String lyrics, int album_id) {
-        this.id = id;
+    public Track(String title, String audio_file, int track_length, Boolean explicit_content, String writer, String composer, String producer, String lyrics, int album_id) {
         this.title = title;
         this.audio_file = audio_file;
         this.track_length = track_length;

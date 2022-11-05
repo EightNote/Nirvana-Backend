@@ -4,6 +4,7 @@ import com.eightnote.nirvana.models.Event;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.Date;
 import java.util.List;
 
 @Component
@@ -16,7 +17,7 @@ public class EventService {
         this.eventDAO = eventDAO;
     }
 
-    public void create(String date, String time, String venue, String registrationLink, String posterUrl, String artistName, String country) {
+    public void create(String date, String time, String venue, String registrationLink, String posterUrl, String artistName, int country) {
         eventDAO.create(date, time, venue, registrationLink, posterUrl, artistName, country);
     }
 
@@ -28,15 +29,15 @@ public class EventService {
         return eventDAO.getAllEvents();
     }
 
-    public void updateEventTime(int id, String time) {
-        eventDAO.updateEventTime(id, time);
+    public void updateEventTime(String reg, String time) {
+        eventDAO.updateEventTime(reg, time);
     }
 
-    public void updateEventDate(int id, String date) {
-        eventDAO.updateEventDate(id, date);
+    public void updateEventDate(String reg, String date) {
+        eventDAO.updateEventDate(reg, date);
     }
 
-    public void updateEventVenue(int id, String venue) {
-        eventDAO.updateEventVenue(id, venue);
+    public void updateEventVenue(String reg, String venue) {
+        eventDAO.updateEventVenue(reg, venue);
     }
 }

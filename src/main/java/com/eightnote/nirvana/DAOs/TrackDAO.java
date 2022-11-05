@@ -19,9 +19,21 @@ public class TrackDAO {
         this.jdbcTemplate = jdbcTemplate;
     }
 
-    public Track getTrack(String trackName) {
-        String sql="SELECT * FROM Track WHERE title = '%s'".formatted(trackName);
-        return jdbcTemplate.queryForObject(sql, TrackRowMapper.trackRowMapper);
+    public List<Track> getTrack(String trackName) {
+        String sql="SELECT * FROM Track WHERE title LIKE '%s%s'".formatted(trackName,"%");
+        System.out.println(sql);
+        return jdbcTemplate.query(sql, (rs, rowNum)->
+                new Track(
+                        rs.getString("title"),
+                        rs.getString("audio_file"),
+                        rs.getInt("track_length"),
+                        rs.getBoolean("explicit_content"),
+                        rs.getString("writer"),
+                        rs.getString("composer"),
+                        rs.getString("producer"),
+                        rs.getString("lyrics"),
+                        rs.getInt("album_id")
+                ));
     }
 
     public  List<Track> getAllTrack() {
@@ -29,7 +41,6 @@ public class TrackDAO {
         return jdbcTemplate.query(sql,
                 (rs, rowNum)->
                         new Track(
-                                rs.getInt("id"),
                                 rs.getString("title"),
                                 rs.getString("audio_file"),
                                 rs.getInt("track_length"),
