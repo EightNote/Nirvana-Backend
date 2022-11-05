@@ -32,8 +32,9 @@ public class AlbumDAO {
     }
 
     public void createAlbum(String albumName, String albumLogo, String artistId, int genreId) {
-        String sql = "INSERT INTO Album(album_title, album_logo, artist_id, genre_id) VALUES(?, ?, ?, ?);";
-        jdbcTemplate.update(sql, albumName, albumLogo, artistId, genreId);
+        String sql = "INSERT INTO Album(album_title, album_logo, artist_id, genre_id) VALUES('%s', '%s', '%s', %d);"
+                .formatted(albumName, albumLogo, artistId, genreId);
+        jdbcTemplate.update(sql);
     }
 
     public List<Country> getReleaseCountries(String album) {

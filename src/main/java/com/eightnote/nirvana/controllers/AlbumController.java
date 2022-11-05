@@ -34,14 +34,9 @@ public class AlbumController {
 
     @PostMapping("/")
     public ResponseEntity createAlbum(
-            @RequestParam("title") String albumName,
-            @RequestParam("logo") String albumLogo,
-            @RequestParam("artistId") String artistId,
-            @RequestParam("genre") String genre
+            @RequestBody Album album
     ) {
-        int genre_id = genreService.getGenreID(genre);
-        albumService.createAlbum(albumName, albumLogo, artistId, genre_id);
-        Album album = albumService.getAlbum(albumName);
+        albumService.createAlbum(album.getAlbum_title(), album.getAlbum_logo(), album.getArtist_id(), album.getGenre_id());
         return new ResponseEntity<>(album, HttpStatus.OK);
     }
 

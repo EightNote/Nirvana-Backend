@@ -5,11 +5,11 @@ public class Album {
     private String album_logo;
     private String album_title;
     private int genre_id;
-    private int artist_id;
+    private String artist_id;
 
 
 
-    public Album(int id, int artistId, String albumLogoUrl, String albumTitle, int genre) {
+    public Album(int id, String artistId, String albumLogoUrl, String albumTitle, int genre) {
         this.id = id;
         this.artist_id = artistId;
         this.album_logo = albumLogoUrl;
@@ -25,7 +25,7 @@ public class Album {
     public String getAlbum_title() {
         return album_title;
     }
-    public int getArtist_id() {
+    public String getArtist_id() {
         return artist_id;
     }
 

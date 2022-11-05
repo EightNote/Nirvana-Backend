@@ -23,8 +23,6 @@ public class NirvanaUserDAO {
 
     public void createUser(NirvanaUser user) {
         String sql = "INSERT INTO NirvanaUsers VALUES ('%s', '%s', true)".formatted( user.getUsername(), user.getPassword());
-        String sqlArtistDetails = "INSERT INTO Artist VALUES (%s)";
-
 
         String sql_role = "INSERT INTO Authorities VALUES ('%s', '%s')".formatted(user.getUsername(), user.getRole());
         jdbcTemplate.update(sql);
@@ -48,16 +46,21 @@ public class NirvanaUserDAO {
 
     public void createArtistAccount(ArtistAccountDetails ac) {
         String sql = "INSERT INTO NirvanaUsers VALUES ('%s', '%s', true)".formatted( ac.getUsername(), ac.getPassword());
-        String sqlArtistDetails = "INSERT INTO Artist VALUES ('%s', '%s', '%s', '%s', '%s', %d, %d)".formatted(
+        String sqlArtistDetails = "INSERT INTO Artist VALUES ('%s', '%s', '%s', '%s', '%s', %d, '%s')".formatted(
                 ac.getUsername(),
                 ac.getAbout(),
                 ac.getTwitter(),
+                ac.getFacebook(),
                 ac.getInstagram(),
                 ac.getNationality_id(),
                 ac.getRecord_label_id()
-        );
+                );
+
+        String sql_role = "INSERT INTO Authorities VALUES ('%s', '%s')".formatted(ac.getUsername(), "artist");
 
         jdbcTemplate.update(sql);
+        jdbcTemplate.update(sqlArtistDetails);
+        jdbcTemplate.update(sql_role);
     }
 
     public List<ArtistDetails> getAllArtist(){

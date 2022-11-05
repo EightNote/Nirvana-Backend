@@ -24,7 +24,12 @@ public class CountryController {
         this.countryService = countryService;
     }
 
+    @PostMapping("{country}")
+    public ResponseEntity createGenre(@PathVariable("country") String countryName) {
+        countryService.createCountry(countryName);
 
+        return new ResponseEntity<>(true, HttpStatus.OK);
+    }
     @GetMapping("{id}/")
     public ResponseEntity getCountry(
             @PathVariable(name = "id", required = true) int id

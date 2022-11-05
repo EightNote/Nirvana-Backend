@@ -46,13 +46,12 @@ public class TrackDAO {
 
     public void createTrack(Track track){
         String sql=("INSERT INTO Track(title, audio_file, track_length, explicit_content, writer, composer, producer, lyrics, album_id) " +
-                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);");
-        jdbcTemplate.update(sql,
+                "VALUES ('%s', '%s', '%d', '%d', '%s', '%s', '%s', '%s', '%d');").formatted(
                 track.getTitle(), track.getAudio_file(),
-                track.getTrack_length(), track.getExplicit_content(),
+                track.getTrack_length(), track.getExplicit_content() ? 1 : 0,
                 track.getWriter(), track.getComposer(), track.getProducer(),
-                track.getProducer(), track.getLyrics()
-        );
+                track.getLyrics(), track.getAlbum_id());
+        jdbcTemplate.update(sql);
     }
 
     public Album getAlbum(String trackName) {

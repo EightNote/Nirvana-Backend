@@ -7,12 +7,11 @@ public class ArtistDetails {
     private String twitter;
     private String facebook;
     private String instagram;
-    private int record_label_id;
+    private String record_label_id;
     private int nationality_id;
 
-    public ArtistDetails(String username, String email, String about, String twitter, String facebook, String instagram, int record_label_id, int nationality_id) {
+    public ArtistDetails(String username, String about, String twitter, String facebook, String instagram, String record_label_id, int nationality_id) {
         this.username = username;
-        this.email = email;
         this.about = about;
         this.twitter = twitter;
         this.facebook = facebook;
@@ -45,7 +44,7 @@ public class ArtistDetails {
         return instagram;
     }
 
-    public int getRecord_label_id() {
+    public String getRecord_label_id() {
         return record_label_id;
     }
 
@@ -77,7 +76,7 @@ public class ArtistDetails {
         this.instagram = instagram;
     }
 
-    public void setRecord_label_id(int record_label_id) {
+    public void setRecord_label_id(String record_label_id) {
         this.record_label_id = record_label_id;
     }
 

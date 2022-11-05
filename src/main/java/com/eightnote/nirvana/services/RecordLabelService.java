@@ -22,4 +22,7 @@ public class RecordLabelService {
 
     public List<RecordLabel> getAllRecordLabel(){return recordLabelDAO.getAllRecordLabel();}
 
+    public void createRecordLabel(RecordLabel recordLabel) {
+        recordLabelDAO.createRecordLabel(recordLabel);
+    }
 }

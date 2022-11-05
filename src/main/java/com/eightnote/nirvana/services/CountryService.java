@@ -26,6 +26,10 @@ public class CountryService {
         return countryDAO.getAllCountries();
     }
     public Country getId(int id) {return countryDAO.getId(id);}
+
+    public void createCountry(String countryName) {
+        countryDAO.addCountry(countryName);
+    }
 }
 
 

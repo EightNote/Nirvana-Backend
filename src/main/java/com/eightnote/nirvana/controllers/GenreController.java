@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @Component
 @CrossOrigin
-@RequestMapping("/genre")
+@RequestMapping("genre/")
 public class GenreController {
     @Autowired
     private final GenreService genreService;
@@ -26,7 +26,7 @@ public class GenreController {
         return new ResponseEntity<>(genreService.getTracks(genre), HttpStatus.OK);
     }
 
-    @PostMapping("/{genreName}")
+    @PostMapping("{genreName}")
     public ResponseEntity createGenre(@PathVariable("genreName") String genreName) {
         genreService.createGenre(genreName);
 

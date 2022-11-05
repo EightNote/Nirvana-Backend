@@ -29,21 +29,23 @@ public class RecordLabelDAO {
                 sql,
                 (rl, rowNum)->
                         new RecordLabel(
-                                rl.getInt("id"),
                                 rl.getString("username"),
-                                rl.getString("email"),
-                                rl.getString("password"),
-                                rl.getBoolean("is_active"),
-                                rl.getDate("created_at"),
-                                rl.getDate("updated_at"),
-                                rl.getString("labelName"),
                                 rl.getString("description"),
-                                rl.getURL("logo"),
-                                rl.getURL("twitter"),
-                                rl.getURL("facebook"),
-                                rl.getURL("instagram")
+                                rl.getString("logo"),
+                                rl.getString("twitter"),
+                                rl.getString("facebook"),
+                                rl.getString("instagram")
                         )
 
         );
+    }
+
+    public void createRecordLabel(RecordLabel recordLabel) {
+        String sql = "INSERT INTO RecordLabel VALUES ('%s', '%s', '%s', '%s', '%s', '%s', '%s')".formatted(
+                recordLabel.getUsername(),recordLabel.getName(), recordLabel.getDescription(), recordLabel.getLogo(), recordLabel.getTwitter(),
+                recordLabel.getFacebook(), recordLabel.getInstagram()
+        );
+
+        jdbcTemplate.update(sql);
     }
 }
