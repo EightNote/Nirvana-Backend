@@ -10,8 +10,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @Component
 @RestController
 @CrossOrigin
@@ -40,11 +38,11 @@ public class AlbumController {
         return new ResponseEntity<>(album, HttpStatus.OK);
     }
 
-    @GetMapping("album/{album}")
+    @GetMapping("album/{id}")
     public ResponseEntity<?>  album(
-            @PathVariable("album") String album
+            @PathVariable("id") Integer id
     ) {
-        return new ResponseEntity<>(albumService.getAlbum(album), HttpStatus.OK);
+        return new ResponseEntity<>(albumService.getAlbumTracks(id), HttpStatus.OK);
     }
 
     @GetMapping("album/get-like-count/{album}")
