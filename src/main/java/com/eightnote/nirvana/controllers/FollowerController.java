@@ -1,95 +1,93 @@
 package com.eightnote.nirvana.controllers;
 
+import com.eightnote.nirvana.models.NirvanaUser;
 import com.eightnote.nirvana.services.FollowerService;
+import com.eightnote.nirvana.services.NirvanaUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.provisioning.JdbcUserDetailsManager;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @RestController
 @Component
 public class FollowerController {
-    JdbcUserDetailsManager userDetailsManager;
+    @Autowired
+    private final NirvanaUserService nirvanaUserService;
     @Autowired
     private final FollowerService followerService;
 
-
-    private final GrantedAuthority authority_artist = () -> "artist";
-    private final GrantedAuthority authority_user = () -> "user";
-
-    public FollowerController(FollowerService followerService) {
+    public FollowerController(NirvanaUserService nirvanaUserService, FollowerService followerService) {
+        this.nirvanaUserService = nirvanaUserService;
         this.followerService = followerService;
     }
 
-
     @PostMapping("/follow")
-    public ResponseEntity<?> follow(
-            @RequestParam("user1") String user1,
-            @RequestParam("user2") String user2
-    ) {
-        var u1 = userDetailsManager.loadUserByUsername(user1);
-        var u2 = userDetailsManager.loadUserByUsername(user2);
+    public ResponseEntity<?> follow(@RequestParam("followed_artist") String followed_artist) {
+        var auth = SecurityContextHolder.getContext().getAuthentication();
+        String follower_username = auth.getName();
 
-        if (u1 != null && u2 != null && u1.getAuthorities().contains(authority_user) && u2.getAuthorities().contains(authority_artist)) {
-            followerService.addFollower(u1, u2);
+        var userInstance = nirvanaUserService.loadUserByUsername(follower_username);
 
-            return new ResponseEntity<>("%s follows %s".formatted(user1, user2), HttpStatus.OK);
+        var artistInstance = nirvanaUserService.loadUserByUsername(followed_artist);
+
+        if (artistInstance.getUsername().equals("anonymousUser")) {
+            return new ResponseEntity<>("No such artist", HttpStatus.BAD_REQUEST);
         }
 
-        List<String> response = new ArrayList<>();
-        if (u1 == null || !u1.getAuthorities().contains(authority_user)) {
-            response.add("%s is not a user".formatted(user1));
-        }
-        if (u2 == null || !u2.getAuthorities().contains(authority_artist)) {
-            response.add("%s is not an artist".formatted(user2));
+        if (userInstance.getRole().equals("artist")) {
+            return new ResponseEntity<>("User logged-in is an artist, and not a user", HttpStatus.BAD_REQUEST);
         }
 
-        return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+        followerService.addFollower(artistInstance, userInstance);
+
+        return new ResponseEntity<>(true, HttpStatus.OK);
     }
 
     @PostMapping("/unfollow")
-    public ResponseEntity unfollow(
-            @RequestParam("user1") String user1,
-            @RequestParam("user2") String user2
-    ) {
-        var u1 = userDetailsManager.loadUserByUsername(user1);
-        var u2 = userDetailsManager.loadUserByUsername(user2);
+    public ResponseEntity<?> unfollow(@RequestParam("followed_artist") String followed_artist) {
+        var auth = SecurityContextHolder.getContext().getAuthentication();
+        String follower_username = auth.getName();
 
-        if (u1 != null && u2 != null && u1.getAuthorities().contains(authority_user) && u2.getAuthorities().contains(authority_artist)) {
-            followerService.removeFollower(u1, u2);
+        var userInstance = nirvanaUserService.loadUserByUsername(follower_username);
 
-            return new ResponseEntity<>("%s does not follow %s".formatted(user1, user2), HttpStatus.OK);
+        var artistInstance = nirvanaUserService.loadUserByUsername(followed_artist);
+
+        if (artistInstance.getUsername().equals("anonymousUser")) {
+            return new ResponseEntity<>("No such artist", HttpStatus.BAD_REQUEST);
         }
 
-        List<String> response = new ArrayList<>();
-        if (u1 == null || !u1.getAuthorities().contains(authority_user)) {
-            response.add("%s is not a user".formatted(user1));
-        }
-        if (u2 == null || !u2.getAuthorities().contains(authority_artist)) {
-            response.add("%s is not an artist".formatted(user2));
+        if (userInstance.getRole().equals("artist")) {
+            return new ResponseEntity<>("User logged-in is an artist, and not a user", HttpStatus.BAD_REQUEST);
         }
 
-        return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+        followerService.removeFollower(artistInstance, userInstance);
+
+        return new ResponseEntity<>(true, HttpStatus.OK);
     }
 
+
     @GetMapping("followers/{user}")
-    public ResponseEntity followers(
-            @PathVariable("user") String username
-    ) {
-        if (userDetailsManager.loadUserByUsername(username) == null) {
-            return new ResponseEntity<>(username + " does not exist", HttpStatus.BAD_REQUEST);
+    public ResponseEntity<?> followers(@PathVariable("user") String username) {
+        NirvanaUser userInstance;
+        userInstance = nirvanaUserService.loadUserByUsername(username);
+
+        if (userInstance == null) {
+            return new ResponseEntity<>("No such artist", HttpStatus.BAD_REQUEST);
         }
-        return new ResponseEntity<>(followerService.getFollowers(username), HttpStatus.OK);
+
+        if (userInstance.getRole().equals("user")) {
+            return new ResponseEntity<>(userInstance.getUsername() + " is not an artist, but a user", HttpStatus.BAD_REQUEST);
+        }
+
+        var l  = followerService.getFollowers(username);
+
+        return new ResponseEntity<>(l, HttpStatus.OK);
     }
 
     @GetMapping("followers/{artist}/is_followed_by/{user}")
-    public ResponseEntity<Boolean> isFollowedBy(
+    public ResponseEntity<?> isFollowedBy(
             @PathVariable("artist") String artist, @PathVariable("user") String username
     ) {
         return new ResponseEntity<>(followerService.isFollowedBy(artist, username), HttpStatus.OK);
