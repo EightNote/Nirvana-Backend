@@ -1,6 +1,7 @@
 package com.eightnote.nirvana.services;
 
 import com.eightnote.nirvana.DAOs.PlaylistDAO;
+import com.eightnote.nirvana.models.AddTrackRequest;
 import com.eightnote.nirvana.models.Playlist;
 import com.eightnote.nirvana.models.PlaylistTrackInfo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,12 @@ public class PlaylistService {
 
     public List<PlaylistTrackInfo> getTracks(String username, String playlistName) {
         return playlistDAO.getTracks(getPlaylistID(username, playlistName));
+    }
+
+    public void addTracks(AddTrackRequest addTrackRequest) {
+        for (String trackName : addTrackRequest.getTrackList()) {
+            playlistDAO.addTrack(trackName, addTrackRequest.getPlaylistID(), addTrackRequest.getAddedByID());
+        }
     }
 
     public List<PlaylistTrackInfo> getTracks(int playlistID) {

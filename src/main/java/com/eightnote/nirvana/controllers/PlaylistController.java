@@ -1,5 +1,6 @@
 package com.eightnote.nirvana.controllers;
 
+import com.eightnote.nirvana.models.AddTrackRequest;
 import com.eightnote.nirvana.models.Playlist;
 import com.eightnote.nirvana.services.NirvanaUserService;
 import com.eightnote.nirvana.services.PlaylistService;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @Component
@@ -32,13 +34,22 @@ public class PlaylistController {
         this.nirvanaUserService = nirvanaUserService;
     }
 
-    @GetMapping("get-tracks/{playlist}")
-    public ResponseEntity getTrack(@PathVariable("playlist") String playlistName, @RequestParam("ownerUsername") String ownerUsername) {
-        return new ResponseEntity<>(playlistService.getTracks(ownerUsername, playlistName), HttpStatus.OK);
+    @GetMapping("/{id}/tracks/")
+    public ResponseEntity<?> getTrack(@PathVariable("id") int id) {
+        return new ResponseEntity<>(playlistService.getTracks(id), HttpStatus.OK);
+    }
+
+    @PostMapping("tracks/")
+    public ResponseEntity<?> addTrack(@RequestBody AddTrackRequest addTrackRequest) {
+        var auth = SecurityContextHolder.getContext().getAuthentication();
+
+        addTrackRequest.setAddedByID(auth.getName());
+        playlistService.addTracks(addTrackRequest);
+        return new ResponseEntity<>(true, HttpStatus.OK);
     }
 
     @GetMapping("")
-    public ResponseEntity getPlaylist(@RequestParam("playlistName") String playlistName, @RequestParam("ownerUsername") String ownerUsername){
+    public ResponseEntity<?> getPlaylist(@RequestParam("playlistName") String playlistName, @RequestParam("ownerUsername") String ownerUsername){
         return new ResponseEntity<>(playlistService.getPlaylist(ownerUsername, playlistName), HttpStatus.OK);
     }
 
