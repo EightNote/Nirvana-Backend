@@ -97,4 +97,13 @@ public class AlbumController {
     ) {
         return new ResponseEntity<>(albumService.getAlbumsByArtist(artist), HttpStatus.OK);
     }
+
+    @GetMapping("likedAlbums/")
+    public ResponseEntity<?> likedAlbums(
+
+            @RequestParam("username") String username
+    )
+    {
+        return new ResponseEntity<>(albumService.likedAlbums(username), HttpStatus.OK);
+    }
 }

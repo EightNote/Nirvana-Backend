@@ -68,4 +68,6 @@ public class AlbumService {
     public List<Album> getUserLikes(String username) {
         return albumDAO.getUserLikes(username);
     }
+
+    public List<Album> likedAlbums(String username) {return albumDAO.likedAlbums(username);}
 }
