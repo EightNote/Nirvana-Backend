@@ -68,8 +68,8 @@ public class NirvanaUserDAO {
         return jdbcTemplate.query(sql,ArtistDetailsRowMapper.artistDetailsRowMapper);
     }
 
-    public List<ArtistDetails> likedArtists(String usernamee){
-        String sql="";
+    public List<ArtistDetails> likedArtists(String username){
+        String sql="SELECT * FROM Artist WHERE username IN (SELECT artist_id FROM ArtistLikes WHERE liked_by_id LIKE '%s');".formatted(username);
         return jdbcTemplate.query(sql,ArtistDetailsRowMapper.artistDetailsRowMapper);
     }
 }

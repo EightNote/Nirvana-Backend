@@ -106,11 +106,11 @@ public class NirvanaUserController {
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
-    @GetMapping("/likedArtists/")
+    @GetMapping("likedArtists/")
     public ResponseEntity<?> likedArtists(
             @RequestParam("username") String username
     ){
-        return new ResponseEntity<>(NirvanaUserService.likedArtists(username), HttpStatus.OK);
+        return new ResponseEntity<>(nirvanaUserService.likedArtists(username), HttpStatus.OK);
     }
 }
 

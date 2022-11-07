@@ -43,7 +43,7 @@ public class NirvanaUserService implements UserDetailsService {
         return nirvanaUserDAO.getAllArtist();
     }
 
-    public static List<ArtistDetails> likedArtists(String username){
+    public List<ArtistDetails> likedArtists(String username){
         return nirvanaUserDAO.likedArtists(username);
     }
 }
