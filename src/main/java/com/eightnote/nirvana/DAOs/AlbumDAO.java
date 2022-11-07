@@ -26,7 +26,7 @@ public class AlbumDAO {
                 ("SELECT Album.id, album_title, album_logo, artist_id, name as genre, COUNT(liked_by_id) as likes " +
                 "FROM Album, Genre, AlbumLikes " +
                 "WHERE genre_id = Genre.id AND Album.id = album_id " +
-                "GROUP BY album_id HAVING album_title = %s;")
+                "GROUP BY album_id HAVING album_title = '%s';")
                 .formatted(albumName);
         return jdbcTemplate.queryForObject(sql, AlbumRowMapper.albumRowMapper);
     }
