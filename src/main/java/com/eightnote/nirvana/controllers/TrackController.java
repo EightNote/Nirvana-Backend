@@ -85,4 +85,9 @@ public class TrackController {
         trackService.isLikedBy(track, track);
         return new ResponseEntity<>(trackService.isLikedBy(username, track), HttpStatus.OK);
     }
+
+    @GetMapping("likedTracks/")
+    public ResponseEntity<?> likedTracks( @RequestParam("username") String username){
+        return new ResponseEntity<>(trackService.likedTracks(username), HttpStatus.OK);
+    }
 }

@@ -84,4 +84,20 @@ public class TrackDAO {
                         "VALUES (%s, %s);".formatted(trackName, likedByUsername);
         jdbcTemplate.update(sql);
     }
+
+    public List<Track> likedTracks(String username){
+        String sql="SELECT * FROM Track WHERE title IN (SELECT track_id FROM TrackLikes WHERE liked_by_id LIKE '%s');".formatted(username);
+        return jdbcTemplate.query(sql,(rs, rowNum)->
+                new Track(
+                        rs.getString("title"),
+                        rs.getString("audio_file"),
+                        rs.getInt("track_length"),
+                        rs.getBoolean("explicit_content"),
+                        rs.getString("writer"),
+                        rs.getString("composer"),
+                        rs.getString("producer"),
+                        rs.getString("lyrics"),
+                        rs.getInt("album_id")
+                ));
+    }
 }
