@@ -67,4 +67,9 @@ public class NirvanaUserDAO {
         String sql = "SELECT * FROM ArtistDetails";
         return jdbcTemplate.query(sql,ArtistDetailsRowMapper.artistDetailsRowMapper);
     }
+
+    public List<ArtistDetails> likedArtists(String usernamee){
+        String sql="";
+        return jdbcTemplate.query(sql,ArtistDetailsRowMapper.artistDetailsRowMapper);
+    }
 }

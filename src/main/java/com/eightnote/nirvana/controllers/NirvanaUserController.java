@@ -105,5 +105,12 @@ public class NirvanaUserController {
         response.put("role", user.getRole());
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
+
+    @GetMapping("/likedArtists/")
+    public ResponseEntity<?> likedArtists(
+            @RequestParam("username") String username
+    ){
+        return new ResponseEntity<>(NirvanaUserService.likedArtists(username), HttpStatus.OK);
+    }
 }
 
