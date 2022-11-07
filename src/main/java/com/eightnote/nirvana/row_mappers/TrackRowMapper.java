@@ -19,7 +19,6 @@ public class TrackRowMapper {
     );
 
     public static RowMapper<PlaylistTrackInfo> playListTrackInfoRowMapper = (rs, rowNum) -> new PlaylistTrackInfo(
-            rs.getInt("id"),
             rs.getString("title"),
             rs.getString("audio_file"),
             rs.getInt("track_length"),
@@ -29,6 +28,6 @@ public class TrackRowMapper {
             rs.getString("producer"),
             rs.getString("lyrics"),
             rs.getInt("album_id"),
-            rs.getString("track_added_by")
+            rs.getString("added_by_id")
     );
 }

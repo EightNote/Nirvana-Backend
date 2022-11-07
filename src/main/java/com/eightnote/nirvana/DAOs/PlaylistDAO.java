@@ -21,8 +21,8 @@ public class PlaylistDAO {
 
     public List<PlaylistTrackInfo> getTracks(int playlistID) {
         String sql = ("SELECT Track.*, PlaylistContent.added_by_id FROM Track " +
-                "JOIN PlaylistContent ON PlaylistContent.track_id = Track.id " +
-                "WHERE Track.id IN  (SELECT track_id FROM PlaylistContent WHERE playlist_id = %d);").formatted(playlistID);
+                "JOIN PlaylistContent ON PlaylistContent.track_id = Track.title " +
+                "WHERE Track.title IN  (SELECT track_id FROM PlaylistContent WHERE playlist_id = %d);").formatted(playlistID);
         return jdbcTemplate.query(sql, TrackRowMapper.playListTrackInfoRowMapper);
     }
 
@@ -95,5 +95,10 @@ public class PlaylistDAO {
     public List<Playlist> getAllPlaylists() {
         String sql = "SELECT * FROM Playlist";
         return jdbcTemplate.query(sql, PlaylistRowMapper.playListRowMapper);
+    }
+
+    public void addTrack(String trackName, int playlistID, String addedBy) {
+        String sql = "INSERT INTO PlaylistContent(added_by_id, playlist_id, track_id) VALUES('%s', %d, '%s');".formatted(addedBy, playlistID, trackName);
+        jdbcTemplate.update(sql);
     }
 }
