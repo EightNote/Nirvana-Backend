@@ -108,4 +108,8 @@ public class PlaylistService {
     public List<Playlist> getPlaylistByUser(String username) {
         return playlistDAO.getPlaylistByUser(username);
     }
+
+    public List<Playlist> getAllPlaylists() {
+        return playlistDAO.getAllPlaylists();
+    }
 }

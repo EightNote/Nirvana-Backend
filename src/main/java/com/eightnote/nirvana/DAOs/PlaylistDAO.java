@@ -91,4 +91,9 @@ public class PlaylistDAO {
         String sql = "SELECT * FROM Playlist WHERE (created_by_artist_id = '%s' OR created_by_user_id = '%s')".formatted(username, username);
         return jdbcTemplate.query(sql, PlaylistRowMapper.playListRowMapper);
     }
+
+    public List<Playlist> getAllPlaylists() {
+        String sql = "SELECT * FROM Playlist";
+        return jdbcTemplate.query(sql, PlaylistRowMapper.playListRowMapper);
+    }
 }

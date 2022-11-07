@@ -10,8 +10,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @Component
 @RestController
 @CrossOrigin
@@ -33,36 +31,36 @@ public class AlbumController {
     }
 
     @PostMapping("/")
-    public ResponseEntity createAlbum(
+    public ResponseEntity<?> createAlbum(
             @RequestBody Album album
     ) {
         albumService.createAlbum(album.getAlbum_title(), album.getAlbum_logo(), album.getArtist_id(), album.getGenre_id());
         return new ResponseEntity<>(album, HttpStatus.OK);
     }
 
-    @GetMapping("album/{album}")
-    public ResponseEntity album(
-            @PathVariable("album") String album
+    @GetMapping("album/{id}")
+    public ResponseEntity<?>  album(
+            @PathVariable("id") Integer id
     ) {
-        return new ResponseEntity<>(albumService.getAlbum(album), HttpStatus.OK);
+        return new ResponseEntity<>(albumService.getAlbumTracks(id), HttpStatus.OK);
     }
 
     @GetMapping("album/get-like-count/{album}")
-    public ResponseEntity getLikeCount(
+    public ResponseEntity<?>  getLikeCount(
             @PathVariable("album") String album
     ) {
         return new ResponseEntity<>(albumService.getLikeCount(album), HttpStatus.OK);
     }
 
     @GetMapping("album/get-likes/{album}")
-    public ResponseEntity getLikes(
+    public ResponseEntity<?>  getLikes(
             @PathVariable("album") String album
     ) {
         return new ResponseEntity<>(albumService.getLikes(album), HttpStatus.OK);
     }
 
     @GetMapping("album/get-user-likes/")
-    public ResponseEntity getUserLikes() {
+    public ResponseEntity<?>  getUserLikes() {
         var auth = SecurityContextHolder.getContext().getAuthentication();
         String username = auth.getName();
         return new ResponseEntity<>(albumService.getUserLikes(username), HttpStatus.OK);
@@ -70,7 +68,7 @@ public class AlbumController {
 
 
     @GetMapping("album/is-liked-by/{album}")
-    public ResponseEntity isLikedBy(
+    public ResponseEntity<?>  isLikedBy(
             @PathVariable("album") String album,
             @RequestParam("username") String username
     ) {
@@ -86,7 +84,7 @@ public class AlbumController {
 //    }
 
     @GetMapping("album/is-released-in-country/{album}")
-    public ResponseEntity isReleasedInCountry(
+    public ResponseEntity<?>  isReleasedInCountry(
             @PathVariable("album") String album,
             @RequestParam("album") String countryName
     ) {
@@ -94,7 +92,7 @@ public class AlbumController {
     }
 
     @GetMapping("album/artist/{artist}")
-    public  ResponseEntity<List<Album>> albumsByArtist(
+    public  ResponseEntity<?> albumsByArtist(
             @PathVariable("artist") String artist
     ) {
         return new ResponseEntity<>(albumService.getAlbumsByArtist(artist), HttpStatus.OK);

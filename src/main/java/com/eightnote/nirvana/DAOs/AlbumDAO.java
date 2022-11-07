@@ -2,8 +2,10 @@ package com.eightnote.nirvana.DAOs;
 
 import com.eightnote.nirvana.models.Album;
 import com.eightnote.nirvana.models.Country;
+import com.eightnote.nirvana.models.Track;
 import com.eightnote.nirvana.row_mappers.AlbumRowMapper;
 import com.eightnote.nirvana.row_mappers.CountryRowMapper;
+import com.eightnote.nirvana.row_mappers.TrackRowMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -89,5 +91,10 @@ public class AlbumDAO {
         };
 
         return likes;
+    }
+
+    public List<Track> getAlbumTracks(Integer id) {
+        String sql = "SELECT * FROM Track WHERE album_id = %s".formatted(id);
+        return jdbcTemplate.query(sql, TrackRowMapper.trackRowMapper);
     }
 }

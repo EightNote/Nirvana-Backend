@@ -1,6 +1,7 @@
 package com.eightnote.nirvana.services;
 
 import com.eightnote.nirvana.DAOs.FollowerDAO;
+import com.eightnote.nirvana.models.NirvanaUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
@@ -16,15 +17,15 @@ public class FollowerService {
         this.followerDAO = followerDAO;
     }
 
-    public void addFollower(UserDetails u1, UserDetails u2) {
-        followerDAO.addFollower(u1, u2);
+    public void addFollower(NirvanaUser artist, NirvanaUser user) {
+        followerDAO.addFollower(artist, user);
     }
 
-    public void removeFollower(UserDetails u1, UserDetails u2) {
-        followerDAO.removeFollower(u1, u2);
+    public void removeFollower(NirvanaUser artist, NirvanaUser user) {
+        followerDAO.removeFollower(artist, user);
     }
 
-    public List<UserDetails> getFollowers(String username) {
+    public List<String> getFollowers(String username) {
         return followerDAO.getFollowersOf(username);
     }
 
