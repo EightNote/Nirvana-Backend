@@ -69,8 +69,20 @@ public class NirvanaUserController {
             return new ResponseEntity<>("User %s does not exist".formatted(userName), HttpStatus.BAD_REQUEST);
         }
         nirvanaUserService.getArtistDetail(user);
-        return new ResponseEntity<>("Details of Artist %s".formatted(userName), HttpStatus.OK);
+        return new ResponseEntity<>(nirvanaUserService.getArtistDetail(user), HttpStatus.OK);
     }
+
+    @GetMapping("get-user-detail/{username}")
+    public ResponseEntity<?> getUserDetail(@PathVariable("username") String userName) {
+        var auth = SecurityContextHolder.getContext().getAuthentication();
+        var user = nirvanaUserService.loadUserByUsername(userName);
+        if (user == null) {
+            return new ResponseEntity<>("User %s does not exist".formatted(userName), HttpStatus.BAD_REQUEST);
+        }
+        nirvanaUserService.getUserDetail(user);
+        return new ResponseEntity<>(nirvanaUserService.getUserDetail(user), HttpStatus.OK);
+    }
+
     @GetMapping("getAllArtist/")
     public ResponseEntity<?> getAllArtist(){
         nirvanaUserService.getAllArtist();

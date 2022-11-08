@@ -22,12 +22,12 @@ public class GenreDAO {
 
     public List<Track> getTracks(String genre) {
         String sql =
-                "SELECT id, audio_file, track_length, explicit_content, writer, composer, producer, lyrics, album_id " +
+                ("SELECT title, audio_file, track_length, explicit_content, writer, composer, producer, lyrics, album_id " +
                 "FROM Track WHERE album_id " +
                         "IN " +
                             "(SELECT Album.id FROM Album " +
-                                "WHERE Album.genre_id IN (SELECT Genre.id FROM Genre WHERE Genre.name = %s)" +
-                            ");".formatted(genre);
+                                "WHERE Album.genre_id IN (SELECT Genre.id FROM Genre WHERE Genre.name = '%s')" +
+                            ");").formatted(genre);
         return jdbcTemplate.query(sql, TrackRowMapper.trackRowMapper);
     }
 

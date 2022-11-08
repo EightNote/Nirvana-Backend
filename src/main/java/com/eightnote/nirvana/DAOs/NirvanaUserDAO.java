@@ -1,9 +1,6 @@
 package com.eightnote.nirvana.DAOs;
 
-import com.eightnote.nirvana.models.ArtistAccountDetails;
-import com.eightnote.nirvana.models.ArtistDetails;
-import com.eightnote.nirvana.models.NirvanaUser;
-import com.eightnote.nirvana.models.UserAccountDetails;
+import com.eightnote.nirvana.models.*;
 import com.eightnote.nirvana.row_mappers.NirvanaUserDetailsRowMapper;
 import com.eightnote.nirvana.row_mappers.NirvanaUserRowMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +8,8 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 @Component
@@ -56,9 +55,9 @@ public class NirvanaUserDAO {
         jdbcTemplate.update(sql);
     }
 
-    public void getArtistDetail(NirvanaUser user) {
+    public ArtistDetails getArtistDetail(NirvanaUser user) {
         String sql = "";
-        jdbcTemplate.queryForObject(sql, NirvanaUserDetailsRowMapper.artistDetailsRowMapper);
+        return jdbcTemplate.queryForObject(sql, NirvanaUserDetailsRowMapper.artistDetailsRowMapper);
     }
 
     public void createArtistAccount(ArtistAccountDetails ac) {
@@ -88,5 +87,18 @@ public class NirvanaUserDAO {
     public List<ArtistDetails> likedArtists(String username){
         String sql="SELECT * FROM Artist WHERE username IN (SELECT artist_id FROM Followers WHERE followed_by_id LIKE '%s');".formatted(username);
         return jdbcTemplate.query(sql,NirvanaUserDetailsRowMapper.artistDetailsRowMapper);
+    }
+
+    public UserDetails getUserDetail(NirvanaUser user) {
+        String sql = "SELECT * FROM UserDetails WHERE username = '%s'".formatted(user.getUsername());
+
+        return jdbcTemplate.queryForObject(sql, (rs, id) -> new UserDetails(
+                rs.getString("username"),
+                rs.getString("first_name"),
+                rs.getString("last_name"),
+                rs.getString("date_of_birth"),
+                rs.getString("gender"),
+                null
+        ));
     }
 }
