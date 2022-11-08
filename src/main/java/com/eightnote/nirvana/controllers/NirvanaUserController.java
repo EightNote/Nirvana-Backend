@@ -40,13 +40,14 @@ public class NirvanaUserController {
 
     @PostMapping("sign-up/")
     public ResponseEntity<?> createUser(@RequestBody NirvanaUser user) {
+        System.out.println(user);
         var encryptedUser = new NirvanaUser(user.getUsername(), bCryptPasswordEncoder.encode(user.getPassword()), "user");
         nirvanaUserService.createUser(encryptedUser);
 
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
 
-    @PostMapping("sign-up/artist/")
+    @PostMapping(value = "sign-up/artist/",consumes = "application/json")
     public ResponseEntity<?> createArtistAccount(@RequestBody ArtistAccountDetails user) {
         var encryptedUser = user;
         String passwordDecoded = user.getPassword();
@@ -73,7 +74,7 @@ public class NirvanaUserController {
         nirvanaUserService.getArtistDetail(user);
         return new ResponseEntity<>("Details of Artist %s".formatted(userName), HttpStatus.OK);
     }
-    @GetMapping("/getAllArtist/")
+    @GetMapping("getAllArtist/")
     public ResponseEntity<?> getAllArtist(){
         nirvanaUserService.getAllArtist();
         return new ResponseEntity<>(nirvanaUserService.getAllArtist(),HttpStatus.OK);

@@ -10,6 +10,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.*;
 
+@CrossOrigin
 @RestController
 @Component
 public class FollowerController {
@@ -27,6 +28,7 @@ public class FollowerController {
     public ResponseEntity<?> follow(@RequestParam("followed_artist") String followed_artist) {
         var auth = SecurityContextHolder.getContext().getAuthentication();
         String follower_username = auth.getName();
+        System.out.println(auth);
 
         var userInstance = nirvanaUserService.loadUserByUsername(follower_username);
 
@@ -49,6 +51,7 @@ public class FollowerController {
     public ResponseEntity<?> unfollow(@RequestParam("followed_artist") String followed_artist) {
         var auth = SecurityContextHolder.getContext().getAuthentication();
         String follower_username = auth.getName();
+        System.out.println(followed_artist);
 
         var userInstance = nirvanaUserService.loadUserByUsername(follower_username);
 

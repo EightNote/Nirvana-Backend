@@ -30,7 +30,8 @@ public class NirvanaUserDAO {
     }
 
     public NirvanaUser getUser(String username) throws EmptyResultDataAccessException {
-        String sql = "SELECT * FROM (SELECT * FROM NirvanaUsers NATURAL JOIN Authorities) as user WHERE user.username = '%s'".formatted(username);
+        String sql = "SELECT * FROM (SELECT * FROM NirvanaUsers NATURAL JOIN Authorities) AS temp WHERE username LIKE '%s';".formatted(username);
+        System.out.println(sql);
         return jdbcTemplate.queryForObject(sql, NirvanaUserRowMapper.nirvanaUserRowMapper);
     }
 
@@ -64,12 +65,12 @@ public class NirvanaUserDAO {
     }
 
     public List<ArtistDetails> getAllArtist(){
-        String sql = "SELECT * FROM ArtistDetails";
+        String sql = "SELECT * FROM Artist";
         return jdbcTemplate.query(sql,ArtistDetailsRowMapper.artistDetailsRowMapper);
     }
 
     public List<ArtistDetails> likedArtists(String username){
-        String sql="SELECT * FROM Artist WHERE username IN (SELECT artist_id FROM ArtistLikes WHERE liked_by_id LIKE '%s');".formatted(username);
+        String sql="SELECT * FROM Artist WHERE username IN (SELECT artist_id FROM Followers WHERE followed_by_id LIKE '%s');".formatted(username);
         return jdbcTemplate.query(sql,ArtistDetailsRowMapper.artistDetailsRowMapper);
     }
 }
