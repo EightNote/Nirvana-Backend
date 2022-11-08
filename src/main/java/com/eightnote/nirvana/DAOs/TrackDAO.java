@@ -65,8 +65,13 @@ public class TrackDAO {
     }
 
     public Album getAlbum(String trackName) {
-        String sql = "SELECT * FROM Track ";
+        String sql = "SELECT * FROM Track";
         return jdbcTemplate.queryForObject(sql, AlbumRowMapper.albumRowMapper);
+    }
+
+    public Integer isLikedBy(String track, String username) {
+        String sql = "SELECT COUNT(*) FROM TrackLikes WHERE track_id='%s' AND liked_by_id='%s'".formatted(track, username);
+        return jdbcTemplate.queryForObject(sql, Integer.class);
     }
 
     public List<String> getLikes(String track) {
