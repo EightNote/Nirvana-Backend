@@ -11,18 +11,26 @@ public class UserAccountDetails extends UserDetails {
         return password;
     }
 
+    private List<Integer> interests_ids;
+
     public void setPassword(String password) {
         this.password = password;
     }
 
-    private List<Integer> interests;
+    public List<Integer> getInterestIDs() {
+        return interests_ids;
+    }
+
+    public void setInterestIDs(List<Integer> interests) {
+        this.interests_ids = interests;
+    }
 
     private final BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
 
     public UserAccountDetails(String username, String firstName, String lastName, String dateOfBirth, String gender, List<Integer> interests, String password) {
         super(username, firstName, lastName, dateOfBirth, gender, null);
         this.password = password;
-        this.interests = interests;
+        this.interests_ids = interests;
     }
 
     public UserAccountDetails encrypted() {

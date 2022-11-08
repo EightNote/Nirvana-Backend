@@ -38,6 +38,11 @@ public class NirvanaUserDAO {
         );
 
         jdbcTemplate.update(details_sql);
+
+        for (int genre_id : user.getInterestIDs()) {
+            String interests_sql = "INSERT INTO Interests(genre_id, username) VALUES ('%s', '%s')".formatted(genre_id, user.getUsername());
+            jdbcTemplate.update(interests_sql);
+        }
     }
 
     public NirvanaUser getUser(String username) throws EmptyResultDataAccessException {
