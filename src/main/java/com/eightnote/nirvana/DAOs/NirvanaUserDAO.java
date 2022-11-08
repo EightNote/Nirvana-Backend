@@ -3,7 +3,8 @@ package com.eightnote.nirvana.DAOs;
 import com.eightnote.nirvana.models.ArtistAccountDetails;
 import com.eightnote.nirvana.models.ArtistDetails;
 import com.eightnote.nirvana.models.NirvanaUser;
-import com.eightnote.nirvana.row_mappers.ArtistDetailsRowMapper;
+import com.eightnote.nirvana.models.UserAccountDetails;
+import com.eightnote.nirvana.row_mappers.NirvanaUserDetailsRowMapper;
 import com.eightnote.nirvana.row_mappers.NirvanaUserRowMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -21,12 +22,27 @@ public class NirvanaUserDAO {
         this.jdbcTemplate = jdbcTemplate;
     }
 
-    public void createUser(NirvanaUser user) {
+    public void createUser(UserAccountDetails user) {
         String sql = "INSERT INTO NirvanaUsers VALUES ('%s', '%s', true)".formatted( user.getUsername(), user.getPassword());
 
-        String sql_role = "INSERT INTO Authorities VALUES ('%s', '%s')".formatted(user.getUsername(), user.getRole());
+        String sql_role = "INSERT INTO Authorities VALUES ('%s', '%s')".formatted(user.getUsername(), "user");
         jdbcTemplate.update(sql);
         jdbcTemplate.update(sql_role);
+
+        String details_sql = "INSERT INTO UserDetails(username, first_name, last_name, date_of_birth, gender) VALUES ('%s', '%s', '%s', '%s', '%s');".formatted(
+                user.getUsername(),
+                user.getFirstName(),
+                user.getLastName(),
+                user.getDateOfBirth(),
+                user.getGender()
+        );
+
+        jdbcTemplate.update(details_sql);
+
+        for (int genre_id : user.getInterestIDs()) {
+            String interests_sql = "INSERT INTO Interests(genre_id, username) VALUES ('%s', '%s')".formatted(genre_id, user.getUsername());
+            jdbcTemplate.update(interests_sql);
+        }
     }
 
     public NirvanaUser getUser(String username) throws EmptyResultDataAccessException {
@@ -42,7 +58,7 @@ public class NirvanaUserDAO {
 
     public void getArtistDetail(NirvanaUser user) {
         String sql = "";
-        jdbcTemplate.queryForObject(sql, ArtistDetailsRowMapper.artistDetailsRowMapper);
+        jdbcTemplate.queryForObject(sql, NirvanaUserDetailsRowMapper.artistDetailsRowMapper);
     }
 
     public void createArtistAccount(ArtistAccountDetails ac) {
