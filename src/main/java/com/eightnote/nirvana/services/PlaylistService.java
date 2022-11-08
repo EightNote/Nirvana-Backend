@@ -45,6 +45,10 @@ public class PlaylistService {
         return playlistDAO.getParticipants(getPlaylistID(username, playlistName));
     }
 
+    public List<String> getParticipants(int id) {
+        return playlistDAO.getParticipants(id);
+    }
+
     public void createUserPlaylist(String name, String desc, String type, String visibility, String createdByUser) {
         playlistDAO.createPlaylist(name, desc, type, visibility, createdByUser, null);
     }
@@ -118,5 +122,9 @@ public class PlaylistService {
 
     public List<Playlist> getAllPlaylists() {
         return playlistDAO.getAllPlaylists();
+    }
+
+    public void addParticipant(int playlistID, String username) {
+        playlistDAO.addParticipant(playlistID, username);
     }
 }
