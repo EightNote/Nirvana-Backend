@@ -54,6 +54,11 @@ public class PlaylistController {
         return new ResponseEntity<>(playlistService.getPlaylist(ownerUsername, playlistName), HttpStatus.OK);
     }
 
+    @GetMapping("id/{id}")
+    public ResponseEntity<?> getPlaylistById(@PathVariable("id") Integer id){
+        return new ResponseEntity<>(playlistService.getPlaylistById(id), HttpStatus.OK);
+    }
+
     @PostMapping("")
     public ResponseEntity<?> createPlaylist(@RequestBody Playlist playlist){
         var authentication = SecurityContextHolder.getContext().getAuthentication();

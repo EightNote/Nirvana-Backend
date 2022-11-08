@@ -77,13 +77,12 @@ public class TrackController {
         return new ResponseEntity<>(trackService.getLikes(track), HttpStatus.OK);
     }
 
-    @GetMapping("is-liked-by/")
+    @GetMapping("is-liked-by/{track}")
     public ResponseEntity<?> isLikedBy(
-            @RequestParam("track") String track,
-            @RequestParam("username") String username
+            @PathVariable("track") String track
     ){
-        trackService.isLikedBy(track, track);
-        return new ResponseEntity<>(trackService.isLikedBy(username, track), HttpStatus.OK);
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        return new ResponseEntity<>(trackService.isLikedBy(track, authentication.getName()), HttpStatus.OK);
     }
 
     @GetMapping("likedTracks/")
