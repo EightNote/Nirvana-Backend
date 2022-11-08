@@ -1,6 +1,7 @@
 package com.eightnote.nirvana.controllers;
 
 import com.eightnote.nirvana.models.AddTrackRequest;
+import com.eightnote.nirvana.models.NirvanaUser;
 import com.eightnote.nirvana.models.Playlist;
 import com.eightnote.nirvana.services.NirvanaUserService;
 import com.eightnote.nirvana.services.PlaylistService;
@@ -107,9 +108,17 @@ public class PlaylistController {
         return new ResponseEntity<>(true, HttpStatus.OK);
     }
 
-    @GetMapping("get-participants/{playlist}")
-    public ResponseEntity<?> getParticipants(@PathVariable("playlist") String playlistName, @RequestParam("ownerName") String ownerUsername) {
-        return new ResponseEntity<>(playlistService.getParticipants( ownerUsername, playlistName), HttpStatus.OK);
+    @PostMapping("participants/{id}")
+    public ResponseEntity<?> addParticipants(@PathVariable("id") int id, @RequestBody Map<String, List<String>> map) {
+        for (String username : map.get("usernames")) {
+            playlistService.addParticipant(id, username);
+        }
+        return new ResponseEntity<>(playlistService.getParticipants(id), HttpStatus.OK);
+    }
+
+    @GetMapping("participants/{id}")
+    public ResponseEntity<?> getParticipants(@PathVariable("id") int id) {
+        return new ResponseEntity<>(playlistService.getParticipants(id), HttpStatus.OK);
     }
 
     @GetMapping("contains-track")
@@ -169,7 +178,11 @@ public class PlaylistController {
     }
 
     @GetMapping("/user/{user}/")
-    public  ResponseEntity<List<Playlist>> getPlaylistsByUser(@RequestParam("user") String username) {
+    public ResponseEntity<?> getPlaylistsByUser(@PathVariable("user") String username) {
+        NirvanaUser user = nirvanaUserService.loadUserByUsername(username);
+        if ("anonymousUser".equals(user.getUsername())) {
+            return new ResponseEntity<>("No such user", HttpStatus.OK);
+        }
         List<Playlist> lp = playlistService.getPlaylistByUser(username);
         return new ResponseEntity<>(lp, HttpStatus.OK);
     }

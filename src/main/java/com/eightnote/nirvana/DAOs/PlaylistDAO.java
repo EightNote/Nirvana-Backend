@@ -33,7 +33,7 @@ public class PlaylistDAO {
 
     public List<String> getParticipants(int playlistID) {
         String sql = "SELECT participant_id FROM PlaylistParticipation WHERE playlist_id = %d;".formatted(playlistID);
-        return jdbcTemplate.query(sql, (rs, index) -> rs.getString("username"));
+        return jdbcTemplate.query(sql, (rs, index) -> rs.getString("participant_id"));
     }
 
     public void createPlaylist(String name, String desc, String type, String visibility, String created_by_user, String created_by_artist) {
@@ -99,6 +99,11 @@ public class PlaylistDAO {
 
     public void addTrack(String trackName, int playlistID, String addedBy) {
         String sql = "INSERT INTO PlaylistContent(added_by_id, playlist_id, track_id) VALUES('%s', %d, '%s');".formatted(addedBy, playlistID, trackName);
+        jdbcTemplate.update(sql);
+    }
+
+    public void addParticipant(int playlistID, String username) {
+        String sql = "INSERT INTO PlaylistParticipation(playlist_id, participant_id) VALUES (%d, '%s');".formatted(playlistID, username);
         jdbcTemplate.update(sql);
     }
 }
