@@ -83,4 +83,9 @@ public class NirvanaUserDAO {
         String sql = "SELECT * FROM ArtistDetails";
         return jdbcTemplate.query(sql, NirvanaUserDetailsRowMapper.artistDetailsRowMapper);
     }
+
+    public List<ArtistDetails> likedArtists(String username){
+        String sql="SELECT * FROM Artist WHERE username IN (SELECT artist_id FROM ArtistLikes WHERE liked_by_id LIKE '%s');".formatted(username);
+        return jdbcTemplate.query(sql,ArtistDetailsRowMapper.artistDetailsRowMapper);
+    }
 }

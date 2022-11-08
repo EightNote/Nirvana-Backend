@@ -47,4 +47,8 @@ public class TrackService {
         boolean hasUserLiked = hasLiked(likedByUsername, trackName);
         trackDao.toggleLike(likedByUsername, trackName, hasUserLiked);
     }
+
+    public List<Track> likedTracks(String username){
+        return trackDao.likedTracks(username);
+    }
 }
