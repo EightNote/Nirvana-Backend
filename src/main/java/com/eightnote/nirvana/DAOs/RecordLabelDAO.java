@@ -19,19 +19,19 @@ public class RecordLabelDAO {
     }
 
     public RecordLabel getRecordLabel(Integer id) {
-        String sql = "SELECT * FROM public.RecordLabel WHERE id= %d".formatted(id);
+        String sql = "SELECT * FROM RecordLabel WHERE id= %d".formatted(id);
         return jdbcTemplate.queryForObject(sql, RecordLabelRowMapper.recordLabelRowMapper);
     }
 
     public List<RecordLabel> getAllRecordLabel(){
-        String sql = "SELECT * FROM public.RecordLabel";
+        String sql = "SELECT * FROM RecordLabel";
         return jdbcTemplate.query(
                 sql,
                 (rl, rowNum)->
                         new RecordLabel(
                                 rl.getString("username"),
                                 rl.getString("description"),
-                                rl.getString("logo"),
+                                rl.getString("record_label_logo"),
                                 rl.getString("twitter"),
                                 rl.getString("facebook"),
                                 rl.getString("instagram")
