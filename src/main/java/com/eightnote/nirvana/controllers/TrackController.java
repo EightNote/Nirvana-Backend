@@ -41,8 +41,8 @@ public class TrackController {
 
     }
 
-    @PostMapping("toggle-like/")
-    public void likes(@RequestParam("playlist") String trackName) {
+    @PostMapping("toggle-like/{title}")
+    public void toggleLike(@PathVariable("title") String trackName) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         trackService.toggleLike(authentication.getName(), trackName);
     }

@@ -19,9 +19,9 @@ public class TrackDAO {
     }
 
     public List<Track> getTrack(String trackName) {
-        String sql="SELECT * FROM Track WHERE title LIKE '%s%s'".formatted(trackName,"%");
+        String sql = "SELECT * FROM Track WHERE title LIKE '%s%s'".formatted(trackName, "%");
         System.out.println(sql);
-        return jdbcTemplate.query(sql, (rs, rowNum)->
+        return jdbcTemplate.query(sql, (rs, rowNum) ->
                 new Track(
                         rs.getString("title"),
                         rs.getString("audio_file"),
@@ -35,10 +35,10 @@ public class TrackDAO {
                 ));
     }
 
-    public  List<Track> getAllTrack() {
-        String sql="SELECT * FROM Track";
+    public List<Track> getAllTrack() {
+        String sql = "SELECT * FROM Track";
         return jdbcTemplate.query(sql,
-                (rs, rowNum)->
+                (rs, rowNum) ->
                         new Track(
                                 rs.getString("title"),
                                 rs.getString("audio_file"),
@@ -50,12 +50,12 @@ public class TrackDAO {
                                 rs.getString("lyrics"),
                                 rs.getInt("album_id")
                         )
-                );
+        );
     }
 
 
-    public void createTrack(Track track){
-        String sql=("INSERT INTO Track(title, audio_file, track_length, explicit_content, writer, composer, producer, lyrics, album_id) " +
+    public void createTrack(Track track) {
+        String sql = ("INSERT INTO Track(title, audio_file, track_length, explicit_content, writer, composer, producer, lyrics, album_id) " +
                 "VALUES ('%s', '%s', '%d', '%d', '%s', '%s', '%s', '%s', '%d');").formatted(
                 track.getTitle(), track.getAudio_file(),
                 track.getTrack_length(), track.getExplicit_content() ? 1 : 0,
@@ -81,18 +81,15 @@ public class TrackDAO {
 
     public void toggleLike(String likedByUsername, String trackName, boolean unlike) {
         String sql = unlike ? ("DELETE FROM TrackLikes " +
-                "WHERE " +
-                "track_id IN (SELECT id FROM Track WHERE title = '%s')) " +
-                "AND liked_by_id = %s").formatted(trackName, likedByUsername) :
-
-                "INSERT INTO TrackLikes(((SELECT id FROM Track WHERE title = '%s')), like_by_id) " +
+                "WHERE track_id = '%s' AND liked_by_id = '%s'").formatted(trackName, likedByUsername) :
+                "INSERT INTO TrackLikes(track_id, like_by_id) " +
                         "VALUES (%s, %s);".formatted(trackName, likedByUsername);
         jdbcTemplate.update(sql);
     }
 
-    public List<Track> likedTracks(String username){
-        String sql="SELECT * FROM Track WHERE title IN (SELECT track_id FROM TrackLikes WHERE liked_by_id LIKE '%s');".formatted(username);
-        return jdbcTemplate.query(sql,(rs, rowNum)->
+    public List<Track> likedTracks(String username) {
+        String sql = "SELECT * FROM Track WHERE title IN (SELECT track_id FROM TrackLikes WHERE liked_by_id LIKE '%s');".formatted(username);
+        return jdbcTemplate.query(sql, (rs, rowNum) ->
                 new Track(
                         rs.getString("title"),
                         rs.getString("audio_file"),
