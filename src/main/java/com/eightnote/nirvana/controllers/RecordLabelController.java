@@ -34,4 +34,9 @@ public class RecordLabelController {
 
         return new ResponseEntity<>(true, HttpStatus.OK);
     }
+
+    @GetMapping("")
+    public ResponseEntity allRecordLabel(){
+        return new ResponseEntity<>(recordLabelService.getAllRecordLabel(), HttpStatus.OK);
+    }
 }

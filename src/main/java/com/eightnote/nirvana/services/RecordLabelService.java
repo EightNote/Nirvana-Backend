@@ -25,4 +25,6 @@ public class RecordLabelService {
     public void createRecordLabel(RecordLabel recordLabel) {
         recordLabelDAO.createRecordLabel(recordLabel);
     }
+
+
 }
