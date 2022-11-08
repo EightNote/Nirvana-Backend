@@ -127,4 +127,8 @@ public class PlaylistService {
     public void addParticipant(int playlistID, String username) {
         playlistDAO.addParticipant(playlistID, username);
     }
+
+    public Playlist getPlaylistById(Integer id) {
+        return playlistDAO.getPlaylist(id);
+    }
 }
