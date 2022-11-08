@@ -33,4 +33,8 @@ public class GenreService {
     public int getGenreID(String genreName) {
         return genreDAO.getGenre(genreName).getId();
     }
+
+    public List<Genre> allGenres() {
+        return genreDAO.allGenres();
+    }
 }

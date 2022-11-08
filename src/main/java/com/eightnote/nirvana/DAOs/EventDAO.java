@@ -21,6 +21,7 @@ public class EventDAO {
     public void create(String date, String time, String venue, String registrationLink, String posterUrl, String artistName, int country) {
         String sql = "INSERT INTO Event (date,time,venue,registration,event_poster,artist_id,country_id) VALUES ('%s', '%s', '%s', '%s', '%s', '%s', %d)"
                 .formatted(date, time, venue, registrationLink, posterUrl, artistName, country);
+        System.out.println(sql);
         jdbcTemplate.update(sql);
     }
 

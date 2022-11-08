@@ -40,4 +40,13 @@ public class GenreDAO {
         String sql = "SELECT * FROM Genre WHERE name = %s".formatted(genreName);
         return jdbcTemplate.queryForObject(sql, GenreRowMapper.genreRowMapper);
     }
+
+    public List<Genre> allGenres() {
+        String sql = "SELECT * FROM Genre";
+        return jdbcTemplate.query(sql,(rs, rowNum)->
+                new Genre(
+                        rs.getInt("id"),
+                        rs.getString("name")
+                ));
+    }
 }
