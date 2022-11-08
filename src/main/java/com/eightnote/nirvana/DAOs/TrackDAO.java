@@ -82,8 +82,8 @@ public class TrackDAO {
     public void toggleLike(String likedByUsername, String trackName, boolean unlike) {
         String sql = unlike ? ("DELETE FROM TrackLikes " +
                 "WHERE track_id = '%s' AND liked_by_id = '%s'").formatted(trackName, likedByUsername) :
-                "INSERT INTO TrackLikes(track_id, like_by_id) " +
-                        "VALUES (%s, %s);".formatted(trackName, likedByUsername);
+                "INSERT INTO TrackLikes(track_id, liked_by_id) " +
+                        "VALUES ('%s', '%s');".formatted(trackName, likedByUsername);
         jdbcTemplate.update(sql);
     }
 

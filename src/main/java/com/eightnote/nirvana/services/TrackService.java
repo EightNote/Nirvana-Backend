@@ -47,7 +47,7 @@ public class TrackService {
     }
 
     public void toggleLike(String likedByUsername, String trackName) {
-        boolean hasUserLiked = isLikedBy(likedByUsername, trackName);
+        boolean hasUserLiked = isLikedBy(trackName, likedByUsername);
         trackDao.toggleLike(likedByUsername, trackName, hasUserLiked);
     }
 
