@@ -56,7 +56,7 @@ public class NirvanaUserDAO {
     }
 
     public ArtistDetails getArtistDetail(NirvanaUser user) {
-        String sql = "";
+        String sql = "SELECT * FROM Artist WHERE username = '%s';".formatted(user.getUsername());
         return jdbcTemplate.queryForObject(sql, NirvanaUserDetailsRowMapper.artistDetailsRowMapper);
     }
 
