@@ -35,7 +35,7 @@ public class PlaylistController {
         this.nirvanaUserService = nirvanaUserService;
     }
 
-    @GetMapping("/{id}/tracks/")
+    @GetMapping("{id}/tracks/")
     public ResponseEntity<?> getTrack(@PathVariable("id") int id) {
         return new ResponseEntity<>(playlistService.getTracks(id), HttpStatus.OK);
     }

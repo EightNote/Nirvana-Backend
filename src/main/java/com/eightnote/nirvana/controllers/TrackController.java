@@ -26,7 +26,7 @@ public class TrackController {
         this.nirvanaUserService = nirvanaUserService;
     }
 
-    @GetMapping("/{track}")
+    @GetMapping("{track}")
     public ResponseEntity<?> track(
             @PathVariable(name = "track", required = false) String track
     ){
@@ -41,7 +41,7 @@ public class TrackController {
 
     }
 
-    @PostMapping("/toggle-like/")
+    @PostMapping("toggle-like/")
     public void likes(@RequestParam("playlist") String trackName) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         trackService.toggleLike(authentication.getName(), trackName);
@@ -52,7 +52,7 @@ public class TrackController {
         trackService.createTrack(track);
     }
 
-    @GetMapping("/get-album/{track}")
+    @GetMapping("get-album/{track}")
     public ResponseEntity<?> getAlbum(
             @PathVariable("track") String track
     ){
@@ -61,7 +61,7 @@ public class TrackController {
         return new ResponseEntity<>(trackService.getAlbum(track), HttpStatus.OK);
     }
 
-    @GetMapping("/get-artist/{track}")
+    @GetMapping("get-artist/{track}")
     public ResponseEntity<?> getArtist(
             @PathVariable("track") String track
     ){
@@ -69,7 +69,7 @@ public class TrackController {
         return new ResponseEntity<>(trackService.getArtist(track), HttpStatus.OK);
     }
 
-    @GetMapping("/get-likes/{track}")
+    @GetMapping("get-likes/{track}")
     public ResponseEntity<?> getLikes(
             @PathVariable("track") String track
     ){
@@ -77,7 +77,7 @@ public class TrackController {
         return new ResponseEntity<>(trackService.getLikes(track), HttpStatus.OK);
     }
 
-    @GetMapping("/is-liked-by/")
+    @GetMapping("is-liked-by/")
     public ResponseEntity<?> isLikedBy(
             @RequestParam("track") String track,
             @RequestParam("username") String username
