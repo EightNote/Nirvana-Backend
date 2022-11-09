@@ -21,7 +21,7 @@ public class EventService {
         eventDAO.create(date, time, venue, registrationLink, posterUrl, artistName, country);
     }
 
-    public Event getEvent(int id) {
+    public Event getEvent(String id) {
         return eventDAO.getEvent(id);
     }
 
