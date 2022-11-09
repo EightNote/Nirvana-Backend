@@ -25,7 +25,7 @@ public class EventDAO {
         jdbcTemplate.update(sql);
     }
 
-    public Event getEvent(int id) {
+    public Event getEvent(String id) {
         String sql = "SELECT * FROM Event WHERE id = %d;".formatted(id);
         return jdbcTemplate.queryForObject(sql, EventRowMapper.eventRowMapper);
     }
@@ -36,25 +36,19 @@ public class EventDAO {
     }
 
     public void updateEventTime(String reg, String time) {
-        String sql = "UPDATE Event " +
-                "SET time = '%s'" +
-                "WHERE registration_link = '%s';";
+        String sql = "UPDATE Event SET time = '%s' WHERE registration = '%s';".formatted(time,reg);
 
         jdbcTemplate.update(sql);
     }
 
     public void updateEventDate(String reg, String date) {
-        String sql = "UPDATE Event " +
-                "SET date = '%s' " +
-                "WHERE registration_link = '%s';";
+        String sql = "UPDATE Event SET date = '%s' WHERE registration = '%s';".formatted(date,reg);
 
         jdbcTemplate.update(sql);
     }
 
     public void updateEventVenue(String reg, String venue) {
-        String sql = "UPDATE Event " +
-                "SET venue = '%' " +
-                "WHERE registration_link = '%s';";
+        String sql = "UPDATE Event SET venue = '%s' WHERE registration = '%s';".formatted(venue,reg);
 
         jdbcTemplate.update(sql);
     }

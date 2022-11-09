@@ -32,7 +32,7 @@ public class EventController {
     }
 
     @GetMapping("{id}")
-    public ResponseEntity<?> getEvent(@PathVariable("id") int id) {
+    public ResponseEntity<?> getEvent(@PathVariable("id") String id) {
         Event e = eventService.getEvent(id);
         return new ResponseEntity<>(e, HttpStatus.OK);
     }
@@ -58,7 +58,7 @@ public class EventController {
         return new ResponseEntity<>(activeList, HttpStatus.OK);
     }
 
-    @PutMapping("{id}/")
+    @PutMapping("")
     public void updateEvent(@RequestBody Event event) {
         eventService.updateEventTime(event.getRegistrationLink(), event.getTime());
         eventService.updateEventDate(event.getRegistrationLink(), event.getDate());
