@@ -27,7 +27,6 @@ public class TrackRowMapper {
             rs.getString("composer"),
             rs.getString("producer"),
             rs.getString("lyrics"),
-            rs.getInt("album_id"),
-            rs.getString("added_by_id")
+            rs.getInt("album_id")
     );
 }
