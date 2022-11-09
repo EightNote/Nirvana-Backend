@@ -74,21 +74,21 @@ public class AlbumController {
     }
 
 
-    @GetMapping("album/is-liked-by/{album}")
+    @GetMapping("is-liked-by/{album}")
     public ResponseEntity<?>  isLikedBy(
-            @PathVariable("album") String album,
-            @RequestParam("username") String username
+            @PathVariable("album") Integer id
     ) {
-        return new ResponseEntity<>(albumService.isLikedBy(username, album), HttpStatus.OK);
+        var auth = SecurityContextHolder.getContext().getAuthentication();
+        return new ResponseEntity<>(albumService.isLikedBy(auth.getName(), id), HttpStatus.OK);
     }
 
-//    @PostMapping("/toggle-like/")
-//    public void toggleLike(
-//            @RequestParam("username") String username,
-//            @RequestParam("username") String albumName
-//    ) {
-//        albumService.toggleLike(username, albumName);
-//    }
+    @PostMapping("/toggle-like/{album}")
+    public void toggleLike(
+            @PathVariable("album") Integer id
+    ) {
+        var auth = SecurityContextHolder.getContext().getAuthentication();
+        albumService.toggleLike(auth.getName(), id);
+    }
 
     @GetMapping("album/is-released-in-country/{album}")
     public ResponseEntity<?>  isReleasedInCountry(

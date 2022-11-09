@@ -52,14 +52,11 @@ public class AlbumDAO {
         return jdbcTemplate.query(sql, CountryRowMapper.countryRowMapper);
     }
 
-    public void toggleLike(String username, String album, boolean unlike) {
+    public void toggleLike(String username, Integer id, boolean unlike) {
         String sql = unlike ? ("DELETE FROM AlbumLikes " +
-                "WHERE " +
-                "album_id IN (SELECT Album.id FROM Album WHERE album_title = %s) " +
-                "AND liked_by_id = %s").formatted(album, username) :
-
-                "INSERT INTO AlbumLikes(album_id, like_by_id) " +
-                        "VALUES ((SELECT id FROM Album WHERE album_title = %s), %s);".formatted(album, username);
+                "WHERE album_id = %s AND liked_by_id = '%s'").formatted(id, username) :
+                "INSERT INTO AlbumLikes(album_id, liked_by_id) " +
+                        "VALUES ( %s, '%s');".formatted(id, username);
         jdbcTemplate.update(sql);
     }
 
@@ -108,5 +105,10 @@ public class AlbumDAO {
     public Album getAlbumById(Integer id) {
         String sql = "SELECT * FROM Album WHERE id=%s".formatted(id);
         return jdbcTemplate.queryForObject(sql, AlbumRowMapper.albumRowMapper);
+    }
+
+    public Integer isLiked(String username, Integer id) {
+        String sql = "SELECT COUNT(*) FROM AlbumLikes WHERE album_id=%s AND liked_by_id='%s'".formatted(id, username);
+        return jdbcTemplate.queryForObject(sql, Integer.class);
     }
 }

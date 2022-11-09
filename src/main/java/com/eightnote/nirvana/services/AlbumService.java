@@ -46,8 +46,8 @@ public class AlbumService {
         return albumDAO.getLikes(albumName);
     }
 
-    public boolean isLikedBy(String username, String albumName) {
-        return albumDAO.getLikes(albumName).contains(username);
+    public boolean isLikedBy(String username, Integer id) {
+        return albumDAO.isLiked(username, id) > 0;
     }
 
     public boolean isReleasedInCountry(String albumName, String countryName) {
@@ -73,5 +73,10 @@ public class AlbumService {
 
     public Object getAlbumById(Integer id) {
         return albumDAO.getAlbumById(id);
+    }
+
+    public void toggleLike(String username, Integer id) {
+        boolean hasUserLike = isLikedBy(username, id);
+        albumDAO.toggleLike(username, id, hasUserLike);
     }
 }
