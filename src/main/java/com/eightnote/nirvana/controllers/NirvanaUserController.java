@@ -103,8 +103,6 @@ public class NirvanaUserController {
             return new ResponseEntity<>("Invalid Credentials", HttpStatus.OK);
         }
 
-
-
         final String token = jsonWebTokenHandler.generateToken(user);
         var response = new HashMap<String, String>();
 
