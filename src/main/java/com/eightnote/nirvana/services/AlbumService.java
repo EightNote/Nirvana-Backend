@@ -70,4 +70,8 @@ public class AlbumService {
     }
 
     public List<Album> likedAlbums(String username) {return albumDAO.likedAlbums(username);}
+
+    public Object getAlbumById(Integer id) {
+        return albumDAO.getAlbumById(id);
+    }
 }

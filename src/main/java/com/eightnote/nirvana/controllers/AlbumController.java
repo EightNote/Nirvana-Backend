@@ -45,6 +45,13 @@ public class AlbumController {
         return new ResponseEntity<>(albumService.getAlbumTracks(id), HttpStatus.OK);
     }
 
+    @GetMapping ("details/{id}")
+    public ResponseEntity<?> albumFromId(
+            @PathVariable("id") Integer id
+    ) {
+        return new ResponseEntity<>(albumService.getAlbumById(id), HttpStatus.OK);
+    }
+
     @GetMapping("album/get-like-count/{album}")
     public ResponseEntity<?>  getLikeCount(
             @PathVariable("album") String album

@@ -102,4 +102,9 @@ public class AlbumDAO {
         String sql= "SELECT * FROM Album WHERE Album.id IN (SELECT album_id FROM AlbumLikes WHERE liked_by_id LIKE '%s')".formatted(username);
         return jdbcTemplate.query(sql, AlbumRowMapper.albumRowMapper);
     }
+
+    public Album getAlbumById(Integer id) {
+        String sql = "SELECT * FROM Album WHERE id=%s".formatted(id);
+        return jdbcTemplate.queryForObject(sql, AlbumRowMapper.albumRowMapper);
+    }
 }
