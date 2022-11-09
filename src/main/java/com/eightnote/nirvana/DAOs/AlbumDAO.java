@@ -33,10 +33,12 @@ public class AlbumDAO {
         return jdbcTemplate.queryForObject(sql, AlbumRowMapper.albumRowMapper);
     }
 
-    public void createAlbum(String albumName, String albumLogo, String artistId, int genreId) {
+    public Integer createAlbum(String albumName, String albumLogo, String artistId, int genreId) {
         String sql = "INSERT INTO Album(album_title, album_logo, artist_id, genre_id) VALUES('%s', '%s', '%s', %d);"
                 .formatted(albumName, albumLogo, artistId, genreId);
+        String sql2 = "SELECT MAX(id) FROM Album";
         jdbcTemplate.update(sql);
+        return jdbcTemplate.queryForObject(sql2, Integer.class);
     }
 
     public List<Country> getReleaseCountries(String album) {

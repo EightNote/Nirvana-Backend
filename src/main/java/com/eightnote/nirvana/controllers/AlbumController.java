@@ -34,8 +34,8 @@ public class AlbumController {
     public ResponseEntity<?> createAlbum(
             @RequestBody Album album
     ) {
-        albumService.createAlbum(album.getAlbum_title(), album.getAlbum_logo(), album.getArtist_id(), album.getGenre_id());
-        return new ResponseEntity<>(album, HttpStatus.OK);
+        Integer id = albumService.createAlbum(album.getAlbum_title(), album.getAlbum_logo(), album.getArtist_id(), album.getGenre_id());
+        return new ResponseEntity<>(id, HttpStatus.OK);
     }
 
     @GetMapping("album/{id}")
