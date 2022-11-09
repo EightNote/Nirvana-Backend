@@ -37,7 +37,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.cors().and().csrf().disable().authorizeRequests()
                 .antMatchers(HttpMethod.POST, "/user/sign-up/user/", "/user/sign-up/artist/", "/user/sign-in/*", "/trending/*").permitAll()
-                .antMatchers("/home", "/user/sign-in/*", "/login","/countries/all/","/genre/*" ).permitAll()
+                .antMatchers("/Songs/*", "/Images/*", "/home", "/user/sign-in/*", "/login","/countries/all/","/genre/*" ).permitAll()
                 .anyRequest().authenticated().and().
 //                .anyRequest().permitAll().and().
                 exceptionHandling().authenticationEntryPoint(nirvanaAuthEntryPoint).and().sessionManagement()
